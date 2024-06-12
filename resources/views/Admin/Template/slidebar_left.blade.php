@@ -14,7 +14,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Item -->
           <li class="nav-item ">
-            <a href="{{route('admin.dashboard') }}" class="nav-link">
+            <a href="{{route('admin.dashboard') }}" class="nav-link" id="dashboard">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard

@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Check if the current URL path matches the specified patterns
       var path = window.location.pathname;
       if (path === '/admin') {
-        
+        $('#dashboard').addClass('active');
       }
       // Check if the URL matches 'admin/user*' or 'admin/Role*'
       if (path.startsWith('/admin/') && (path.includes('/user') || path.includes('/Role'))) {

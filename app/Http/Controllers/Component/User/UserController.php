@@ -31,10 +31,10 @@ class UserController extends Controller
 
     public function search(String $search = null,int $limit_per_page = 10 ){
         $biodata = Biodata::select([
-            'id', 'nama_lengkap','user_id']);
-        // ])->whereDoesntHave('user.roles',function(Builder $q){
-        //     $q->where('name', 'Admin');
-        // });
+            'id', 'nama_lengkap','user_id'
+        ])->whereDoesntHave('user.roles',function(Builder $q){
+            $q->where('name', 'Admin');
+        });
         if(!empty($search)){
             $biodata->where('nama_lengkap','like','%'.$search.'%');
         }

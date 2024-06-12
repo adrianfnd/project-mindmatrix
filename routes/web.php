@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin','middelware'=> 'auth:sanctum'],function(){
         Route::get('/',[C_M_Admin::class,'user_test'])->name('admin.minat.dashboard');
         Route::group(['prefix' => 'setting_page'],function(){
             Route::get('/',[C_M_Admin::class,'setting_page'])->name('admin.minat.setting.dashboard');
+            Route::post('/description',[C_M_Admin::class,'edit_description'])->name('admin.minat.setting.description');
         });
     });
     Route::group((['prefix'=>'user']),function(){

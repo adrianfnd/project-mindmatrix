@@ -46,7 +46,30 @@
                                     <td scope="col">{{$role['name']}}</td>
                                     <td scope="col">{{$role['guard_name']}}</td>
                                     <td scope="col">{{$role->permissions->pluck('name')}}</td>
-                                    <td scope="col">Aksi</td>
+                                    <td scope="col">
+                                        <div class="row">
+                                            <div class="col m-0 p-0">
+                                                <form action="#" method="post">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" name="id_user" value="1"/>
+                                                    <button class="btn btn-warning rounded"> 
+                                                            <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png" alt="icon_delete" height="18">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col m-0 p-0">
+                                                <form action="#" method="post">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" name="id_user" value="1"/>
+                                                    <button class="btn btn-danger rounded"> 
+                                                            <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png" alt="icon_delete" height="18">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
