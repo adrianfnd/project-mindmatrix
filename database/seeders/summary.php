@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\pilihan_summary as Summary_option;
+
 class summary extends Seeder
 {
     /**
@@ -37,5 +39,14 @@ class summary extends Seeder
             'dsummary_singkatan' => "Conventional",
             'dsummery_keterangan' => "Individu dengan minat conventional menyukai aktivitas-aktivitas kerja dengan aturan main yang jelas. Tipe ini menyukai prosedur dan standar, dan tidak bermasalah dengan rutinitas. Tipe ini lebih suka bekerja dengan data dan detail daripada bermain dengan ide. Tipe ini juga lebih menyenangi pekerjaan dengan standar yang tinggi dibandingkan harus membuat pertimbangan oleh diri mereka sendiri. Individu dengan tipe ini 52 menyukai pekerjaan dimana garis wewenang telah ditetapkan dengan jelas.",
         ];
+
+        foreach($data as $value){
+            Summary_option::create([
+                'id_test' => 1,
+                'nama_bakat' => $value['dsummary_bakat'],
+                'singkatan' => $value['dsummary_singkatan'],
+                'keterangan' => $value['dsummery_keterangan'],
+            ]);
+        }
     }
 }

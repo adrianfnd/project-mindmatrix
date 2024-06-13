@@ -37,7 +37,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.minat.setting.dashboard')}}" class="nav-link">
+                <a href="{{route('admin.minat.setting.dashboard',['limit_per_page' => '10'])}}" class="nav-link">
                   <i class="fa fa-tasks nav-icon"></i>
                   <p>Setting Page</p>
                 </a>

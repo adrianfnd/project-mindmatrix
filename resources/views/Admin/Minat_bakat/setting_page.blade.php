@@ -90,10 +90,10 @@ Minat Bakat > Settings
                     </form>
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><img
+                    <a href="{{route('admin.minat.setting.soal.create')}}" type="button" class="btn btn-primary"><img
                             src="https://cdn-icons-png.flaticon.com/512/40/40031.png" alt="icon_add" width="20"
                             style="margin-right:5px;" /> Create Soal
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="mt-3">
@@ -108,6 +108,7 @@ Minat Bakat > Settings
                                 </tr>
                             </thead>
                             <tbody>
+                                @if ($questions->count() != 0)
                                 <tr>
                                     <td scope="col" class="text-center">1</td>
                                     <td scope="col">Testing</td>
@@ -137,7 +138,10 @@ Minat Bakat > Settings
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                 </tr>
+                                 @else
+                                    <!-- belum beres -->
+                                 @endif
                             </tbody>
                         </table>
                     </div>
