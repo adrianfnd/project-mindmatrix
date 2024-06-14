@@ -72,7 +72,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           }
         });
       }
-        if (path === '/admin/minat_bakat/setting_page') {
+        if (path === '/admin/minat_bakat/setting_page' || path === '/admin/minat_bakat/setting_page/create') {
           $('.nav-item').each(function () {
             var linkPath = $(this).find('a').attr('href');
             if (linkPath && (linkPath.includes('/admin/minat_bakat/setting_page') || linkPath === '#minat_bakat') ) {

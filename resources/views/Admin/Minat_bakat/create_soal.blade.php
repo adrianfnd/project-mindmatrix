@@ -64,8 +64,6 @@ Minat Bakat > Settings > Create Soals
                         @foreach ($summarys as $value )
                         <option value="{{$value['id']}}">{{$value['nama_bakat']}}</option>
                         @endforeach
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
                     </select>
                 </td>
             `;

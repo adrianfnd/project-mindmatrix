@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\Default\Search as R_Search;
 use App\Http\Requests\Default\Edit_description as R_E_Description;
-use App\Http\REquests\Default\Create_Jawaban as R_C_Soal;
+use App\Http\Requests\Soal\Jawaban\Create_Jawaban as R_C_Soal;
+use App\Http\Requests\Soal\Jawaban\detail_jawaban as R_D_Soal;
+use App\Http\Requests\Soal\Jawaban\Edit_Jawaban as R_E_Soal;
 
 
 // component
@@ -28,7 +30,8 @@ class MinatController extends C_Minat
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : 10;
         $descrition = $this->get_description();
         $qustions = $this->search($value['search'],$value['limit_per_page']);
-        return view('Admin.Minat_bakat.setting_page',['description' => $descrition,'questions' => $qustions]);
+        $summarys = $this->get_summary();
+        return view('Admin.Minat_bakat.setting_page',['description' => $descrition,'questions' => $qustions , 'summarys' => $summarys]);
     }
 
     public function page_create_soal(){
@@ -52,5 +55,16 @@ class MinatController extends C_Minat
         return redirect()->route('admin.minat.setting.dashboard',['limit_per_page' => 10]);
     }
 
-    
+    public function delete_soal(R_D_Soal $request){
+        $value = $request->validated();
+        $status_delete = $this->delete_jawaban($value['id']);
+        return redirect()->route('admin.minat.setting.dashboard',['limit_per_page' => 10]);
+    }
+
+
+    public function edit_soal(R_E_Soal $request){
+        $value = $request->validated();
+        $status_edit = $this->edit_jawaban($value['id_soal'],$value['id_summary'],$value['pertanyaan']);
+        return redirect()->route('admin.minat.setting.dashboard',['limit_per_page' => 10]);
+    }
 }

@@ -32,9 +32,9 @@ class minat_controller extends Controller
     }
     public function search($search,int $limt_per_page)
     {
-        $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan();
+        $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->jawaban();
         if(!empty($search)){
-            // belum beres
+            $value = $value->where('jawaban','like','%'.$search.'%');
         }
         $value = $value->paginate($limt_per_page);
 
@@ -51,5 +51,20 @@ class minat_controller extends Controller
         return true;
     }
 
-    
+    public function delete_jawaban($id_jawaban){
+       $value =  jawaban::find($id_jawaban);
+        if($value == null) return false;
+        $value->delete();
+        return true;
+    }
+
+    public function edit_jawaban($id_jawaban,$id_summary,$jawaban){
+        $value = Jawaban::find($id_jawaban);
+        if($value == null) return false;
+        $value->update([
+            'jawaban' => $jawaban,
+            'id_summary' => $id_summary,
+        ]);
+        return true;
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Default;
+namespace App\Http\Requests\Soal\Jawaban;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Create_Jawaban extends FormRequest
+class detail_jawaban extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class Create_Jawaban extends FormRequest
     public function rules(): array
     {
         return [
-            'jawaban.*' => ['required','array','max:1'],
-            'jawaban.pertanyaan.*' => ['required'],
-            'jawaban.id_summar.*' => ['required'],
+            'id' => ['required','numeric','exists:pilihan_jawabans,id'],
         ];
     }
 }

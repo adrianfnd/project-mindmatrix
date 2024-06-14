@@ -24,6 +24,8 @@ Route::group(['prefix' => 'admin','middelware'=> 'auth:sanctum'],function(){
             Route::get('/',[C_M_Admin::class,'setting_page'])->name('admin.minat.setting.dashboard');
             Route::get('/create',[C_M_Admin::class,'page_create_soal'])->name('admin.minat.setting.soal.create');
             Route::post('/create',[C_M_Admin::class,'create_soal'])->name('admin.minat.setting.soal.send');
+            Route::post('/delete',[C_M_Admin::class,'delete_soal'])->name('admin.minat.setting.soal.delete');
+            Route::post('/edit',[C_M_Admin::class,'edit_soal'])->name('admin.minat.setting.soal.edit');
             Route::post('/description',[C_M_Admin::class,'edit_description'])->name('admin.minat.setting.description');
         });
     });

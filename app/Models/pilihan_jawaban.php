@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 // model
 use App\Models\pertanyaan as Pertanyaan;
 use App\Models\pilihan_summary as Summary;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class pilihan_jawaban extends Model
 {
@@ -27,8 +26,8 @@ class pilihan_jawaban extends Model
         return $this->hasOne(Pertanyaan::class,'id','id_pertanyaan');
     }
 
-    public function summary() : HasMany
+    public function summary() : HasOne
     {
-        return $this->hasMany(Summary::class,'id','id_summary');
+        return $this->hasOne(Summary::class,'id','id_summary');
     }
 }
