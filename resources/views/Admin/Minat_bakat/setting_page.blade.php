@@ -4,7 +4,7 @@ Minat Bakat > Settings
 @endsection
 @section('content')
 <div class="container-fluid">
-    <div class="row mb-3">
+    <div class="row col mb-3">
         @include('Admin.Template.card_header')
     </div>
     <!-- Desctiotion -->

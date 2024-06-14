@@ -28,15 +28,18 @@ class MinatController extends C_Minat
         $value = $request->validated();
         $value['search'] = (isset($value['search'])) ? $value['search'] : null;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : 10;
+        //  controller items
         $descrition = $this->get_description();
         $qustions = $this->search($value['search'],$value['limit_per_page']);
         $summarys = $this->get_summary();
+        // end controller items
         return view('Admin.Minat_bakat.setting_page',['description' => $descrition,'questions' => $qustions , 'summarys' => $summarys]);
     }
 
     public function page_create_soal(){
         $summarys = $this->get_summary();
-        return view('Admin.Minat_bakat.create_soal',['summarys' => $summarys]);
+        $qustions = $this->search(null,10);
+        return view('Admin.Minat_bakat.create_soal',['summarys' => $summarys,'questions' => $qustions ]);
     }
 
     public function edit_description(R_E_Description $request){
