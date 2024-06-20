@@ -22,7 +22,6 @@ class Create_Jawaban extends FormRequest
     public function rules(): array
     {
         return [
-            'jawaban.*' => ['required','array','max:1'],
             'jawaban.pertanyaan.*' => ['required'],
             'jawaban.id_summar.*' => ['required'],
         ];

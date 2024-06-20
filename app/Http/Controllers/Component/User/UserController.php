@@ -36,7 +36,9 @@ class UserController extends Controller
         //     $q->where('name', 'Admin');
         // });
         if(!empty($search)){
-            $biodata->where('nama_lengkap','like','%'.$search.'%');
+            $biodata->where('nama_lengkap','like','%'.$search.'%')->orWhereHas('user',function(Builder $q) use ($search){
+                $q->where('email','=',$search);
+            });
         }
         $biodata = $biodata->paginate($limit_per_page);
         if($biodata->count() == 0){

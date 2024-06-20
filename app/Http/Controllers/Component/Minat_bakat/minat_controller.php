@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 // model 
 use App\Models\test_description as Test;
+use App\Models\log_test_user as Test_log;
+use App\Models\log_jawaban_user as Jawaban_log;
 use App\Models\pilihan_jawaban as Jawaban;
 
 class minat_controller extends Controller
@@ -41,6 +43,21 @@ class minat_controller extends Controller
         return $value;
     }
 
+    public function send_jawaban(String $id_user , $id_pertanyaan , $status){
+        $id_test = Test::where('nama_test','=','Minat Bakat')->first();
+        $id_log_test = Test_log::create([
+            'id_test' => $id_test->id,
+            'id_biodata' => $id_user,
+        ]);
+        $status = filter_var($status,FILTER_VALIDATE_BOOLEAN);
+        Jawaban_log::create([
+            'id_log' => $id_log_test['id'],
+            'id_pertanyaan' => $id_pertanyaan,
+            'jawaban' => $status,
+        ]);
+        return true;
+    }
+
     public function create_jawaban($pertanyaan , int $id_summary){
         $jawaban = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->id;
         Jawaban::create([
@@ -66,5 +83,5 @@ class minat_controller extends Controller
             'id_summary' => $id_summary,
         ]);
         return true;
-    }
+    } 
 }
