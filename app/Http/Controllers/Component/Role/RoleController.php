@@ -19,11 +19,11 @@ class RoleController extends Controller
         return $role;
     }
     public function saerch(String $search = null,int $limit = 10){
+        $role = Role::where('name','!=','Admin');
         if($search != null){
-            $role = Role::where('name','like','%'.$search.'%')->paginate($limit);
-        }else{
-            $role = Role::paginate($limit);
-        }
+            $role = $role->where('name','like','%'.$search.'%');
+        } 
+        $role = $role->paginate($limit);
         return $role;
     }
 }

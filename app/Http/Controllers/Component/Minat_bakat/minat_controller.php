@@ -20,6 +20,10 @@ class minat_controller extends Controller
        return $value;
     }
 
+    public function get_user_test(){
+        
+    }
+
     
     public function set_description(int $id , $desc){
         Test::find($id)->update([
