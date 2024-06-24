@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str as Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
+// model
+use App\Models\biodata as Biodata;
 
 class User extends Authenticatable
 {
@@ -66,5 +70,10 @@ class User extends Authenticatable
     public function getKeyType()
     {
         return 'string';
+    }
+
+    public function biodata(): HasOne
+    {
+        return $this->hasOne(Biodata::class,'user_id','id');
     }
 }

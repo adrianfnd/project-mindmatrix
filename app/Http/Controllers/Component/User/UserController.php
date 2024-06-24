@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 // model
 use App\Models\User as User;
 use App\Models\biodata as Biodata;
+use App\Models\log_test_user as Log_test;
 
 class UserController extends Controller
 {
@@ -60,5 +61,11 @@ class UserController extends Controller
         $biodata->delete();
         $user->delete();
         return true;
+    }
+
+    public function count_test(string $id_user){
+        $biodata =  Biodata::find($id_user);
+        $test_cout = Log_test::where('id_biodata','=',$biodata->id)->count();
+        return $test_cout;
     }
 }

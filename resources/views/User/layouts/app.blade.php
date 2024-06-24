@@ -19,8 +19,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
     <!-- Navbar dan side bar -->
-    @include('admin.Template.navbar')
-    @include('admin.Template.slidebar_left')
+    @include('User.layouts.navbar')
+    @include('User.layouts.slidebar_left')
     <!-- Header Content-->
     <div class="content-wrapper">
       <div class="content-header">
