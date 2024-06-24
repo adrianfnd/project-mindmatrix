@@ -39,7 +39,11 @@ class summary extends Seeder
             'dsummary_singkatan' => "Conventional",
             'dsummery_keterangan' => "Individu dengan minat conventional menyukai aktivitas-aktivitas kerja dengan aturan main yang jelas. Tipe ini menyukai prosedur dan standar, dan tidak bermasalah dengan rutinitas. Tipe ini lebih suka bekerja dengan data dan detail daripada bermain dengan ide. Tipe ini juga lebih menyenangi pekerjaan dengan standar yang tinggi dibandingkan harus membuat pertimbangan oleh diri mereka sendiri. Individu dengan tipe ini 52 menyukai pekerjaan dimana garis wewenang telah ditetapkan dengan jelas.",
         ];
-
+        $data[5] = [
+            'dsummary_bakat' => "Realistic",
+            'dsummary_singkatan' => "Realistic",
+            'dsummery_keterangan' => "Individu dengan minat realistic menyukai aktivitas-aktivitas kerja yang bersifat praktis, cepat menangkap masalah dan mencari solusinya. Menikmati bekerja dengan tanaman, hewan, dan material-material lain yang terlihat, seperti kayu, mesin, alat, dll. Menyukai kegitan luar ruang. Seringkali individu dengan minat realistic tidak menyukai pekerjaan yang terutama melibatkan paper-work atau pekerjaan yang banyak berhubungan dengan orang lain.",
+        ];
         foreach($data as $value){
             Summary_option::create([
                 'id_test' => 1,

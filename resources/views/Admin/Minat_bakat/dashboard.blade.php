@@ -14,7 +14,7 @@ Minat Bakat > Dashboard
         <div class="card-body">
             <div class="row mb-2">
                 <div class="col d-flex justify-conten-start">
-                    <form action="{{route('admin.minat.setting.dashboard')}}" method="get">
+                    <form action="{{route('admin.minat.dashboard',['limit_per_page' => 10])}}" method="get">
                         @csrf
                         @method('GET')
                         <div class="input-group" style="width:30rem;">
@@ -24,12 +24,6 @@ Minat Bakat > Dashboard
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Serach</button>
                         </div>
                     </form>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <a href="{{route('admin.minat.setting.soal.create')}}" type="button" class="btn btn-primary"><img
-                            src="https://cdn-icons-png.flaticon.com/512/40/40031.png" alt="icon_add" width="20"
-                            style="margin-right:5px;" /> Create Soal
-                    </a>
                 </div>
             </div>
             <div class="mt-3">

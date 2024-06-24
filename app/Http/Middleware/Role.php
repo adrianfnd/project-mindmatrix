@@ -17,7 +17,24 @@ class Role
      */
     public function handle(Request $request, Closure $next,$give_permission): Response
     {
-        dd(Auth::check());
-        return $next($request);
+        $acceptHader = $request->header('Accept');
+        $header_akses = strpos($acceptHader,'application/json');
+        if(!Auth::check()){
+            if($header_akses == true){
+                return response()->json([
+                    'pesan' => "Silahakn lakukan login terlebih dahulu",
+                ],403);
+            }
+            return redirect()->route('login.page');
+        }
+        $user_roles = Auth::user()->getRoleNames();
+        foreach($user_roles as $role){
+            $role = strtolower($role);
+            $give_permission = strtolower($give_permission);
+            if($role == $give_permission){
+                return $next($request);
+            }
+        }
+        return abort(403,"gak boleh ke sini ya ? putar balik sana");
     }
 }

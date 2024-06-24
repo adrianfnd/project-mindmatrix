@@ -16,5 +16,12 @@
         </a>
       </li>
     </ul>
+    <ul class="navbar-nav " style="margin-right: 10px;">
+      <li class="nav-item">
+        <a class="nav_link" href="{{route('admin.logout')}}">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->

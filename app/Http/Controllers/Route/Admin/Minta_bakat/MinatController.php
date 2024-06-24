@@ -25,7 +25,7 @@ class MinatController extends C_Minat
     public function user_test(R_Search $request)
     {
         $value = $request->validated();
-        $value['search'] = (isset($value['searc'])) ? $value['search'] : $this->search_default;
+        $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
         // controller items
         $users = $this->search_user($value['search'], $value['limit_per_page']);

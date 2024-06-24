@@ -36,8 +36,8 @@ class minat_controller extends Controller
     public function search_user($search,int $limit_per_page){
         $values = Test::where('nama_test','=','Minat Bakat')->first()->log_test();
         if(!empty($search)){
-            $values = $values->whereHas('biodata', function(Builder $q) use ($saerch){
-                    $q->where('nama_lengkap','like','%'.$saerch.'%');
+            $values = $values->whereHas('biodata', function(Builder $q) use ($search){
+                    $q->where('nama_lengkap','like','%'.$search.'%');
             });
         }
         $values = $values->paginate($limit_per_page);

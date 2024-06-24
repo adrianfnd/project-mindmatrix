@@ -39,7 +39,8 @@ class GuestController extends Controller
         foreach($value['pertanyaan']['pertanyaan'] as $key => $hasil){
                 $C_Minta_bakat->send_jawaban($search_user,$hasil,$value['pertanyaan']['jawaban'][$key]);
         }
-        // ini belum beres
+        $login_response = $C_login->login($value['email'],$value['password']);
+        return redirect()->route('user.dashboard');
     }
 
      
@@ -55,7 +56,7 @@ class GuestController extends Controller
         if($check_role == "admin"){
             return redirect()->route('admin.dashboard');
         }
-        return redirect()->route('guest.page')->withSuccess(['pesan' => "Berhasil login"]);
+        return redirect()->route('user.dashboard');
     }
     
 }

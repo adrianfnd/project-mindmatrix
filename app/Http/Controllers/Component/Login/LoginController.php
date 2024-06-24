@@ -26,14 +26,12 @@ class LoginController extends Controller
     }
 
     public function logout(){
-        if(!Auth::check()){
+        if(Auth::check() == false){
             return false;
         }
-        Auth::user()->tokens()->each(function($token){
-            if(Auth::user()->id == $token->user_id){
-                $token->delete();
-            }
-        });
-        return false;
+        Auth::guard('web')->logout();
+        session()->invalidate();
+        session()->regenerateToken();
+        return true;
     }
 }

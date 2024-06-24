@@ -36,6 +36,10 @@ class soal_sementara extends Seeder
             'pertanyaan' => "Pertanyaan Conventional",
             'id_summary' => 5,
         ];
+        $data[5] = [
+            'pertanyaan' => "Pertanyaan Realistic",
+            'id_summary' => 6,
+        ];
         $minta = new Minat();
         foreach($data as $value){
             $minta->create_jawaban($value['pertanyaan'],$value['id_summary']);
