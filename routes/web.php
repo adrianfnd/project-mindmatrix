@@ -14,11 +14,11 @@ Route::get('/developer',function (){
 });
 
 Route::get('/',[C_Guest::class,'guest_page'])->name('login.page');
-Route::post('/',[C_Guest::class,'login'])->name('login.send');
+Route::post('/',[C_Guest::class,'login'])->name('login');
 Route::post('/send',[C_Guest::class,'send_soal_free'])->name('guest.send_free_course');
 
-Route::group(['prefix' => 'admin','middelware'=> 'auth:sanctum'],function(){
-    Route::get('/',[C_Admin::class,'dashboard'])->name('admin.dashboard');
+Route::group(['prefix' => 'admin','middleware'=>'auth'],function(){
+    Route::get('/',[C_Admin::class,'dashboard'])->name('admin.dashboard')->middleware('Role:admin');
     Route::group(['prefix' => 'minat_bakat'],function(){
         Route::get('/',[C_M_Admin::class,'user_test'])->name('admin.minat.dashboard');
         Route::group(['prefix' => 'setting_page'],function(){
@@ -41,5 +41,3 @@ Route::group(['prefix' => 'admin','middelware'=> 'auth:sanctum'],function(){
         Route::post('/create',[C_R_Admin::class,'create'])->name('admin.role.create');
     });
 });
-
-

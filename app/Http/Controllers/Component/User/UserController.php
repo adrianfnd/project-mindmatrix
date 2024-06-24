@@ -25,7 +25,7 @@ class UserController extends Controller
             'nama_lengkap' => $nama_lengkap,
             'tanggal_lahir' => $tanggal_lahir,
         ]);
-        $user->assignRole('admin');
+        $user->assignRole('user');
         return true;
     }
 

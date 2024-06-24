@@ -6,7 +6,7 @@
           <div class="row d-flex justify-content-end me-2">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form action="{{route('login.send')}}" method="post">
+          <form action="{{route('login')}}" method="post">
             @csrf
             @method('POST')
             <div class="row">

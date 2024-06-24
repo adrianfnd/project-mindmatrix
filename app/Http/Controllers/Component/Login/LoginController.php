@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\Auth as Auth;
 class LoginController extends Controller
 {
     public function login(String $email , String $password){
-       $user = Auth::attempt(['email' => $email , 'password'=> $password]);
-        if(!$user){
+        if(!Auth::attempt(['email' => $email , 'password'=> $password])){
             return false;
-        }
+        };
         $user = Auth::user();
         $token = $user->createToken($user['email'],[$user->getRoleNames()])->plainTextToken;
         return $token;

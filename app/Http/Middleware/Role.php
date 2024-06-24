@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-// Auth
-use Illuminate\Support\Facades\Auth;
 
 class Role
 {
@@ -16,20 +15,9 @@ class Role
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next ,$role_permission): Response
+    public function handle(Request $request, Closure $next,$give_permission): Response
     {
-        $acceptHader = $request->header('Accept');
-        $header_akses = strpos($acceptHader,'application/json');
-        if(!Auth::check()){
-            if($header_akses == true){
-                return response()->json([
-                    'pesan' => "Silahakn lakukan login terlebih dahulu",
-                ],403);
-            }
-            return redirect()->route('login.page');
-        }
-        $user_role = Auth::user()->getRoleNames();
-        dd($user_role);
-
+        dd(Auth::check());
+        return $next($request);
     }
 }

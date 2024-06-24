@@ -5,10 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Http\Controllers\Component\User\UserController as C_User;
-
-
-
+use App\Models\User as User;
+use App\Models\biodata as Biodata;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -17,7 +16,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = new C_User();
-        $user->create("alfadjri28@gmail.com","Alfadjri Dwi Fadhilah","20-09-2000","12345678");
+        $user =  User::create([
+            'email' => "alfadjri28@gmail.com",
+            'password' => Hash::make("12345678"),
+        ]);
+        $tanggal_lahir = date('Y-m-d',strtotime("20-09-2000"));
+        $biodata = Biodata::create([
+            'user_id' => $user->id,
+            'nama_lengkap' => "Alfadjri Dwi Fadhilah",
+            'tanggal_lahir' => $tanggal_lahir,
+        ]);
+        $user->assignRole('admin');
     }
 }
