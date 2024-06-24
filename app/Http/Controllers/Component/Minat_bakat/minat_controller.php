@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
+// controller fomrula 
+use App\Http\Controllers\Component\Minat_bakat\formulaController as Fomula;
 
 // model 
 use App\Models\test_description as Test;
@@ -19,11 +21,6 @@ class minat_controller extends Controller
        $value = Test::where('nama_test','=','Minat Bakat')->select('id','desc_test')->first();
        return $value;
     }
-
-    public function get_user_test(){
-        
-    }
-
     
     public function set_description(int $id , $desc){
         Test::find($id)->update([
@@ -36,7 +33,23 @@ class minat_controller extends Controller
         $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat')->get();
         return $value;
     }
-    public function search($search,int $limt_per_page)
+    public function search_user($search,int $limit_per_page){
+        $values = Test::where('nama_test','=','Minat Bakat')->first()->log_test();
+        if(!empty($search)){
+            $values = $values->whereHas('biodata', function(Builder $q) use ($saerch){
+                    $q->where('nama_lengkap','like','%'.$saerch.'%');
+            });
+        }
+        $values = $values->paginate($limit_per_page);
+        foreach($values->items() as $value){
+            $fomula = new Fomula($value['id_biodata']);
+            $test_resutl = $fomula->get_result();
+            $value['hasil_test'] = $test_resutl;
+        }
+        return $values;
+
+    }
+    public function search_question($search,int $limt_per_page)
     {
         $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->jawaban();
         if(!empty($search)){
@@ -49,7 +62,7 @@ class minat_controller extends Controller
 
     public function send_jawaban(String $id_user , $id_pertanyaan , $status){
         $id_test = Test::where('nama_test','=','Minat Bakat')->first();
-        $id_log_test = Test_log::create([
+        $id_log_test = Test_log::firstOrCreate([
             'id_test' => $id_test->id,
             'id_biodata' => $id_user,
         ]);

@@ -21,7 +21,7 @@ class GuestController extends Controller
         }
         $C_Minat = new C_Minat();
         $minta_decrition = $C_Minat->get_description();
-        $soals = $C_Minat->search(null,1000);
+        $soals = $C_Minat->search_question(null,1000);
         return view('Guest.guest',['desc' => $minta_decrition,'soals' => $soals]);
     }
 

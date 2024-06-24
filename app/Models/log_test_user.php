@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 // model 
 use App\Models\test_description as Test;
+use App\Models\log_jawaban_user as Log_Test;
 use App\Models\biodata as Biodata;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class log_test_user extends Model
 {
@@ -26,8 +28,13 @@ class log_test_user extends Model
         return $this->belongsTo(Test::class,'id','id_test');
     }
 
-    public function biodata() : BelongsTo
+    public function biodata() : HasOne
     {
-        return $this->belongsTo(Biodata::class,'id','id_biodata');
+        return $this->hasOne(Biodata::class,'id','id_biodata');
+    }
+
+    public function log_test() : HasOne
+    {
+        return $this->hasOne(Log_Test::class,'id_log','id');
     }
 }

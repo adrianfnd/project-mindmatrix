@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\pertanyaan as Pertanyaan;
 use App\Models\pilihan_summary as Summary;
-
+use App\Models\log_test_user as Log_Test;
 
 class test_description extends Model
 {
@@ -27,5 +27,10 @@ class test_description extends Model
     public function summary(): HasMany
     {
         return $this->hasMany(Summary::class,'id_test','id');
+    }
+
+    public function log_test(): HasMany
+    {
+        return $this->hasMany(Log_Test::class,'id_test','id');
     }
 }

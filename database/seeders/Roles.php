@@ -17,7 +17,7 @@ class Roles extends Seeder
         $permission_guard = ["api",'web'];
         $permission_role = ["user read","user create","user update","user delete"];
 
-        $role = ["admin"];
+        $role = ["admin","user"];
 
         foreach($permission_guard as $value_permission){
             foreach ($role as $value) {
@@ -33,7 +33,11 @@ class Roles extends Seeder
         foreach ($permission_role as $value) {
             $user_role->givePermissionTo($value);
         }
+        $user_role = Role::findByName('user');
 
+        foreach ($permission_role as $value) {
+            $user_role->givePermissionTo($value);
+        }
 
     }
 }
