@@ -52,7 +52,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{{asset('asset/js/adminlte/jquery/jquery.js')}}"></script>
   <script src="{{asset('asset/js/adminlte/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('asset/js/adminlte/js/adminlte.js')}}"></script>
+  <script>
+    $(document).ready(function () {
+      // Check if the current URL path matches the specified patterns
+      var path = window.location.pathname;
+      if (path === '/user') {
+        $('#dashboard').addClass('active');
+      }
+      if(path === '/user/minat_bakat'){
+        $('#minat_bakat').addClass('active');
+      }
+    });
+  </script>
   @yield('script')
+
 </body>
 
 </html>

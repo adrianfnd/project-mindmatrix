@@ -30,7 +30,7 @@ class minat_controller extends Controller
     }
 
     public function get_summary(){
-        $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat')->get();
+        $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat','keterangan')->get();
         return $value;
     }
     public function search_user($search,int $limit_per_page){

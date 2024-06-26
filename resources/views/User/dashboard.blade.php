@@ -56,7 +56,7 @@ User Dashboard
                         <div class="card-body">
                             <h5 class="card-title col text-center">{{$test['nama_test']}}</h5>
                             <p class="card-text">{{$test['desc_test']}}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{route('user.minat.dashboard')}}" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a href="#minat_bakat" class="nav-link">
+            <a href="{{route('user.minat.dashboard')}}" class="nav-link" id="minat_bakat">
               <i class="nav-icon fa fa-solid fa-person-hiking"></i>
               <p>
                 Minat Bakat
