@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_summary')->nullable(true);
             $table->foreign('id_summary')->references('id')->on('pilihan_summaries')->onDelete('SET NULL');
             $table->text('jawaban');
+            $table->boolean('status_jawaban')->default(true);
             $table->timestamps();
         });
     }

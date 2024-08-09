@@ -14,6 +14,7 @@ use App\Models\test_description as Test;
 use App\Models\log_test_user as Test_log;
 use App\Models\log_jawaban_user as Jawaban_log;
 use App\Models\pilihan_jawaban as Jawaban;
+use App\Models\pilihan_summary as Summary;
 
 class minat_controller extends Controller
 {
@@ -29,10 +30,28 @@ class minat_controller extends Controller
         return true;
     }
 
+    // summary
     public function get_summary(){
         $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat','keterangan')->get();
+        // jumlah soal 
+        foreach($value as $summary){
+            $jumlah_soal = Jawaban::where('id_summary','=',$summary['id'])->count();
+            $summary['jumlah_soal'] = $jumlah_soal;
+        }
         return $value;
     }
+    public function get_detail_summary($id){
+        $value = Summary::find($id);
+        return $value;
+    } 
+    public function set_update_summary($id,$nama,$keterangan){
+        $value = Summary::find($id)->update([
+            'nama_bakat' => $nama,
+            'keterangan' => $keterangan,
+        ]);
+        return true;
+    }
+    // end summary 
     public function search_user($search,int $limit_per_page){
         $values = Test::where('nama_test','=','Minat Bakat')->first()->log_test();
         if(!empty($search)){
@@ -51,7 +70,7 @@ class minat_controller extends Controller
     }
     public function search_question($search,int $limt_per_page)
     {
-        $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->jawaban();
+        $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->jawaban()->whereNot('status_jawaban','=',0);
         if(!empty($search)){
             $value = $value->where('jawaban','like','%'.$search.'%');
         }
@@ -84,11 +103,12 @@ class minat_controller extends Controller
         ]);
         return true;
     }
-
+    // belum beres
     public function delete_jawaban($id_jawaban){
        $value =  jawaban::find($id_jawaban);
-        if($value == null) return false;
-        $value->delete();
+        $value->update([
+            'status_jawaban' => false
+        ]);
         return true;
     }
 

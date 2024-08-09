@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\User as User;
 use App\Models\biodata as Biodata;
 use App\Models\log_test_user as Log_test;
+use App\Models\log_jawaban_user as log_jawaban_user;
 
 class UserController extends Controller
 {
@@ -54,9 +55,18 @@ class UserController extends Controller
         $biodata->makeHidden('user','created_at','updated_at','user_id');
         return $biodata;
     }
-
+    // belum beres
     public function delete(String $id_user){
         $biodata = Biodata::find($id_user);
+        $log_test = $biodata->log_test_user()->get();
+        foreach($log_test as $test){
+            $id_test = $test->id;
+            $log_jawaban = log_jawaban_user::where('id_log','=',$id_test)->get();
+            foreach($log_jawaban as $jawaban){
+                $jawaban->delete();
+            }
+            $test->delete();
+        }
         $user = User::where('id','=',$biodata['user_id']);
         $biodata->delete();
         $user->delete();

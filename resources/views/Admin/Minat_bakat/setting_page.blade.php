@@ -34,6 +34,50 @@ Minat Bakat > Settings
         </div>
     </div>
     <!-- End Desctiption -->
+    <!-- Summary -->
+    <div class="row card mb-2">
+        <div class="card-header">
+            <h5>Summary</h5>
+        </div>
+        <div class="card-body">
+            <div class="row ">
+                <div class="col ">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">No</th>
+                                <th scope="col">Summary</th>
+                                <th scope="col">Jumlah Soal</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $nomer= 1?>
+                            @foreach ($summarys as $value)
+                                <tr>
+                                    <td scope="col" class="text-center">
+                                        <?php echo $nomer; $nomer++?>
+                                    </td>
+                                    <td scope="col">{{$value->nama_bakat}}</td>
+                                    <td scope="col">{{$value->jumlah_soal}}</td>
+                                    <td scope="col" class="text-center">
+                                        <div class="row">
+                                            <div class="col m-0 p-0">
+                                                <a href="{{route('admin.minat.setting.summary.edit',['id'=>$value['id']])}}" class="btn btn-warning rounded">
+                                                    <img src=" https://cdn-icons-png.flaticon.com/512/1159/1159633.png "
+                                                        alt="icon_edit" height="18"></a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Summary -->
     <!-- Modal Description -->
     <div class="modal fade" id="modal_edit_description" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">>
@@ -147,8 +191,11 @@ Minat Bakat > Settings
                                 @else
                                     <!-- belum beres -->
                                 @endif
+
                             </tbody>
+
                         </table>
+                        {{$questions->links('Layout.Pagination.pagination')}}
                     </div>
                 </div>
             </div>
@@ -176,14 +223,14 @@ Minat Bakat > Settings
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <input type="hidden" name="id_soal" id="id_soal">
-                                    <textarea  name="pertanyaan" class="form-control" placeholder="Soal" id="pertanyaan"required></textarea>
+                                    <textarea name="pertanyaan" class="form-control" placeholder="Soal" id="pertanyaan"
+                                        required></textarea>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-user"></i></span>
                                     </div>
-                                    <select name="id_summary" class="form-control"
-                                        id="summary" required>
+                                    <select name="id_summary" class="form-control" id="summary" required>
                                         @foreach ($summarys as $value)
                                             <option value="{{$value['id']}}">{{$value['nama_bakat']}}</option>
                                         @endforeach

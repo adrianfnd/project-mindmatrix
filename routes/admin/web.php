@@ -17,7 +17,12 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
             Route::post('/create', [C_M_Admin::class, 'create_soal'])->name('minat.setting.soal.send');
             Route::post('/delete', [C_M_Admin::class, 'delete_soal'])->name('minat.setting.soal.delete');
             Route::post('/edit', [C_M_Admin::class, 'edit_soal'])->name('minat.setting.soal.edit');
-            Route::post('/description', [C_M_Admin::class, 'edit_description'])->name('minat.setting.description');
+            Route::group(['prefix' => 'description'],function(){
+                Route::post('/', [C_M_Admin::class, 'edit_description'])->name('minat.setting.description');
+                // belum beres
+                Route::get('/{id}/edit',[C_M_Admin::class,'page_edit_summary'])->name('minat.setting.summary.edit');
+                Route::post('/{id}/edit',[C_M_Admin::class,'update_summary'])->name('minta.setting.summary.edit.update');
+            });
         });
     });
     Route::group((['prefix' => 'user']), function () {

@@ -19,6 +19,7 @@ class pilihan_jawaban extends Model
         'id_pertanyaan',
         'id_summary',
         'jawaban',
+        'status_jawaban'
     ];
 
     public function pertanyaan() : HasOne
