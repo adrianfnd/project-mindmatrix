@@ -4,6 +4,7 @@ use App\Http\Controllers\Route\Admin\AdminController as C_Admin;
 use App\Http\Controllers\Route\Admin\User\userController as C_U_Admin;
 use App\Http\Controllers\Route\Admin\Role\RoleController as C_R_Admin;
 use App\Http\Controllers\Route\Admin\Minta_bakat\MinatController as C_M_Admin;
+use App\Http\Controllers\Route\Admin\Univeritas\UniversitasController as C_Univ_Admin;
 
 
 Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
@@ -29,6 +30,9 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
         Route::get('/', [C_U_Admin::class, 'dashboard'])->name('user.dashboard');
         Route::post('/create', [C_U_Admin::class, 'create_user'])->name('user.create');
         Route::post('/delete', [C_U_Admin::class, 'delete_user'])->name('user.delete');
+    });
+    Route::group((['prefix' => 'univeritas']),function() {
+        Route::get('/',[C_Univ_Admin::class,'dashboard'])->name('univeritas.dashboard');
     });
     Route::group((['prefix' => 'Role']), function () {
         Route::get('/', [C_R_Admin::class, 'dashboard'])->name('role.dashboard');

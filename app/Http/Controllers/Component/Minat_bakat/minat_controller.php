@@ -35,7 +35,7 @@ class minat_controller extends Controller
         $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat','keterangan')->get();
         // jumlah soal 
         foreach($value as $summary){
-            $jumlah_soal = Jawaban::where('id_summary','=',$summary['id'])->count();
+            $jumlah_soal = Jawaban::where('id_summary','=',$summary['id'])->whereNot('status_jawaban','=',0)->count();
             $summary['jumlah_soal'] = $jumlah_soal;
         }
         return $value;

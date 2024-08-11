@@ -69,5 +69,4 @@ Minat Bakat > Dashboard
     <!-- End list soal -->
 </div>
 
-
 @endsection

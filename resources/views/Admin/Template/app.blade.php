@@ -67,29 +67,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
           if (linkPath && (path.startsWith('/admin/user') && linkPath.includes('/admin/user')) ||
             (path.startsWith('/admin/Role') && linkPath.includes('admin/Role')) ||
             linkPath === '#setting_website') {
-              console.log(this);
+            console.log(this);
             $(this).addClass('menu-open').find('a').first().addClass('active');
           }
         });
       }
-        if (path === '/admin/minat_bakat/setting_page' || path === '/admin/minat_bakat/setting_page/create') {
-          $('.nav-item').each(function () {
-            var linkPath = $(this).find('a').attr('href');
-            if (linkPath && (linkPath.includes('/admin/minat_bakat/setting_page') || linkPath === '#minat_bakat') ) {
-              $(this).addClass('menu-open').find('a').first().addClass('active');
-            }
-          });
-        }
+      if (path === '/admin/minat_bakat/setting_page' || path === '/admin/minat_bakat/setting_page/create') {
+        $('.nav-item').each(function () {
+          var linkPath = $(this).find('a').attr('href');
+          if (linkPath && (linkPath.includes('/admin/minat_bakat/setting_page') || linkPath === '#minat_bakat')) {
+            $(this).addClass('menu-open').find('a').first().addClass('active');
+          }
+        });
+      }
 
-        // Check if the URL starts with '/admin/minat_bakat' (handles query string)
-        if (path === '/admin/minat_bakat') {
-          $('.nav-item').each(function () {
-            var linkPath = $(this).find('a').attr('href');
-            if (linkPath && (linkPath.includes('/admin/minat_bakat?l') || linkPath === '#minat_bakat')) {
-              $(this).addClass('menu-open').find('a').first().addClass('active');
-            }
-          });
-        }
+      if (path === '/admin/minat_bakat') {
+        $('.nav-item').each(function () {
+          var linkPath = $(this).find('a').attr('href');
+          if (linkPath && (linkPath.includes('/admin/minat_bakat?l') || linkPath === '#minat_bakat')) {
+            $(this).addClass('menu-open').find('a').first().addClass('active');
+          }
+        });
+      }
+      if (path === '/admin/univeritas') {
+        $('.nav-item').each(function () {
+          var linkPath = $(this).find('a').attr('href');
+          if (linkPath && (linkPath.includes('/admin/univeritas?l') || linkPath === '#univeritas')) {
+            $(this).addClass('menu-open').find('a').first().addClass('active');
+          }
+        });
+      }
     });
   </script>
   @yield('script')

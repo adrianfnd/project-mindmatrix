@@ -21,6 +21,26 @@
               </p>
             </a>
           </li>
+          <!-- Univeritas -->
+          <li class="nav-item ">
+            <a href="#univeritas" class="nav-link">
+              <i class="nav-icon fas fa-solid fa-building-columns"></i>
+              <p>
+                Univeritas
+              </p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.univeritas.dashboard')}}" class="nav-link">
+                  <i class="fa fa-users nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- End Univeritas -->
+          <!-- Minta Bakat -->
           <li class="nav-item ">
             <a href="#minat_bakat" class="nav-link">
               <i class="nav-icon fa fa-solid fa-person-hiking"></i>
@@ -44,7 +64,8 @@
               </li>
             </ul>
           </li>
-
+          <!-- End Minta Bakat -->
+           <!-- Setting website -->
           <li class="nav-item">
             <a href="#setting_website" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
@@ -68,13 +89,12 @@
               </li>
             </ul>
           </li>
-
+          <!-- End Setting website -->
         <!-- Untuk Admin Setting -->
 
         <!-- End item -->
       </ul>
     </nav>
-
   </div>
 </aside>
 
