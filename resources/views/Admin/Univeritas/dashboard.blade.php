@@ -1,6 +1,6 @@
 @extends('Admin.Template.app')
 @section('title')
-Univeritas
+Univeritas > Dashboard
 @endsection
 @section('content')
 <div class="container-fluid">

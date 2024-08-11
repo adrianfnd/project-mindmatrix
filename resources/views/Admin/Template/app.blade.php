@@ -55,49 +55,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{{asset('asset/js/adminlte/js/adminlte.js')}}"></script>
   <script>
     $(document).ready(function () {
-      // Check if the current URL path matches the specified patterns
       var path = window.location.pathname;
-      if (path === '/admin') {
-        $('#dashboard').addClass('active');
-      }
-      // Check if the URL matches 'admin/user*' or 'admin/Role*'
-      if (path.startsWith('/admin/') && (path.includes('/user') || path.includes('/Role'))) {
+
+      // Function to add active and menu-open classes
+      function activateNavItem(pathPatterns, menuId) {
         $('.nav-item').each(function () {
           var linkPath = $(this).find('a').attr('href');
-          if (linkPath && (path.startsWith('/admin/user') && linkPath.includes('/admin/user')) ||
-            (path.startsWith('/admin/Role') && linkPath.includes('admin/Role')) ||
-            linkPath === '#setting_website') {
-            console.log(this);
-            $(this).addClass('menu-open').find('a').first().addClass('active');
-          }
-        });
-      }
-      if (path === '/admin/minat_bakat/setting_page' || path === '/admin/minat_bakat/setting_page/create') {
-        $('.nav-item').each(function () {
-          var linkPath = $(this).find('a').attr('href');
-          if (linkPath && (linkPath.includes('/admin/minat_bakat/setting_page') || linkPath === '#minat_bakat')) {
+          if (pathPatterns.some(pattern => path.startsWith(pattern) || linkPath.includes(pattern))) {
             $(this).addClass('menu-open').find('a').first().addClass('active');
           }
         });
       }
 
-      if (path === '/admin/minat_bakat') {
-        $('.nav-item').each(function () {
-          var linkPath = $(this).find('a').attr('href');
-          if (linkPath && (linkPath.includes('/admin/minat_bakat?l') || linkPath === '#minat_bakat')) {
-            $(this).addClass('menu-open').find('a').first().addClass('active');
-          }
-        });
-      }
-      if (path === '/admin/univeritas') {
-        $('.nav-item').each(function () {
-          var linkPath = $(this).find('a').attr('href');
-          if (linkPath && (linkPath.includes('/admin/univeritas?l') || linkPath === '#univeritas')) {
-            $(this).addClass('menu-open').find('a').first().addClass('active');
-          }
-        });
+      // Determine which menu to activate based on the path
+      switch (path) {
+        case '/admin':
+          $('#dashboard').addClass('active');
+          break;
+        case '/admin/minat_bakat/setting_page':
+          activateNavItem(['/admin/minat_bakat/setting_page?l', '#minat_bakat']);
+          break;
+        case '/admin/minat_bakat/setting_page/create':
+          activateNavItem(['/admin/minat_bakat/setting_page/create?l', '#minat_bakat']);
+          break;
+        case '/admin/minat_bakat':
+          activateNavItem(['/admin/minat_bakat?l', '#minat_bakat']);
+          break;
+        case '/admin/univeritas/jurusan':
+          activateNavItem(['/admin/univeritas/jurusan?l', '#univeritas']);
+          break;
+        case '/admin/univeritas':
+          activateNavItem(['/admin/univeritas?l', '#univeritas']);
+          break;
+        case '/admin/user':
+          activateNavItem(['/admin/user?l', '#setting_website'], '');
+          break;
+        case '/admin/Role':
+          activateNavItem(['/admin/Role?l', '#setting_website'], '');
+          break;
+        default:
+          activateNavItem(['/admin/user?l', '#setting_website'], '');
+          break;
       }
     });
+
   </script>
   @yield('script')
 

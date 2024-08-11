@@ -74,7 +74,6 @@ class MinatController extends C_Minat
         return view('Admin.Minat_bakat.edit_summary',['summary' => $summary]);
     }
 
-    // ini belum beres
     public function update_summary(R_S_Update $request)
     {
         $value = $request->validated();

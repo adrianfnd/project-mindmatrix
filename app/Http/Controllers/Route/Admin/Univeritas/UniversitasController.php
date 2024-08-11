@@ -7,9 +7,46 @@ use App\Http\Controllers\Controller;
 // component
 use App\Http\Controllers\Component\Universitas\univeritasController as C_univeritas;
 
+// Request
+use App\Http\Requests\Jurusan\create as R_J_Create;
+use App\Http\Requests\Default\Search as R_Search;
+use App\Http\Requests\Jurusan\Update as R_J_Update;
+use App\Http\Requests\Jurusan\Delete as R_J_Delete;
 class UniversitasController extends C_univeritas
 {
-    public function dashboard(){
+    private $limit_page = 10;
+    private $search_default = null;
+
+    public function dashboard(R_Search $request){
+        $value = $request->validated();
+        $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
+        $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
         return view('Admin.Univeritas.dashboard');
+    }
+
+    public function jurusan(R_Search $request){
+        $value = $request->validated();
+        $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
+        $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
+        $jurusans = $this->search_jurusan($value['search'],$value['limit_per_page']);
+        return view('Admin.Univeritas.jurusan',['jurusans' => $jurusans]);
+    }
+
+    public function create_jurusan(R_J_Create $request){
+       $value = $request->validated();
+       $create = $this->send_jurusan($value['nama']);
+       return redirect()->route('admin.univeritas.jurusan', ['limit_per_page' => 10]);
+    }
+
+    public function update_jurusan(R_J_Update $request){
+        $value = $request->validated();
+        $update = $this->send_update_jurusan($value['id'],$value['nama']);
+        return redirect()->route('admin.univeritas.jurusan', ['limit_per_page' => 10]);
+    }
+
+    public function delete_jurusan(R_J_Delete $request){
+        $value = $request->validated();
+        $delete = $this->send_delete_jurusan($value['id']);
+        return redirect()->route('admin.univeritas.jurusan', ['limit_per_page' => 10]);
     }
 }
