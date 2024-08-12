@@ -3,7 +3,7 @@
 Minat Bakat > Dashboard
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid full-height">
     <div class="row col mb-3">
         @include('Admin.Template.card_header')
     </div>

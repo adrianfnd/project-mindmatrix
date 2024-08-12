@@ -12,6 +12,10 @@ use App\Http\Requests\Jurusan\create as R_J_Create;
 use App\Http\Requests\Default\Search as R_Search;
 use App\Http\Requests\Jurusan\Update as R_J_Update;
 use App\Http\Requests\Jurusan\Delete as R_J_Delete;
+// Request Universitas
+use App\Http\Requests\Universitas\Create as R_U_Create;
+
+
 class UniversitasController extends C_univeritas
 {
     private $limit_page = 10;
@@ -21,8 +25,22 @@ class UniversitasController extends C_univeritas
         $value = $request->validated();
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
-        return view('Admin.Univeritas.dashboard');
+        $universitas = $this->search_universitas($value['search'],$value['limit_per_page']);
+        return view('Admin.Univeritas.dashboard',['universitas' => $universitas]);
     }
+
+    public function page_create_universitas(){
+        $jurusans = $this->get_all_jurusan();
+        return view('Admin.Univeritas.create_universitas',['jurusans' => $jurusans]);
+    }
+
+    public function send_create_universitas(R_U_Create $request){
+        $value = $request->validated();
+        $file = $request->file('filename');
+        $create_value = $this->create_universitas($value['name'],$value['akreditasi'],$value['alamat'],$value['jurusan'],$file);
+        return redirect()->route('admin.univeritas.dashboard',['limit_per_page' => 8]);
+    }
+
 
     public function jurusan(R_Search $request){
         $value = $request->validated();

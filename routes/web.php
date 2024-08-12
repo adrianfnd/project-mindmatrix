@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 // route admin di simpan di admin/web.php 
 // Guest
 use App\Http\Controllers\Route\Guest\GuestController as C_Guest;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/developer',function (){
     return view('Admin.Settings.User.dashboard');

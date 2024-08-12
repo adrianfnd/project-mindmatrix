@@ -31,9 +31,11 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
         Route::post('/create', [C_U_Admin::class, 'create_user'])->name('user.create');
         Route::post('/delete', [C_U_Admin::class, 'delete_user'])->name('user.delete');
     });
-    Route::group((['prefix' => 'univeritas']),function() {
+    Route::group((['prefix' => 'universitas']),function() {
         // belum beres
         Route::get('/',[C_Univ_Admin::class,'dashboard'])->name('univeritas.dashboard');
+        Route::get('/create',[C_Univ_Admin::class,'page_create_universitas'])->name('univeritas.dashboard.create.page');
+        Route::post('/create',[C_Univ_Admin::class,'send_create_universitas'])->name('univeritas.dashboard.create.send');
         Route::group((['prefix' => 'jurusan']),function(){
             Route::get('/',[C_Univ_Admin::class,'jurusan'])->name('univeritas.jurusan');
             Route::post('/create',[C_Univ_Admin::class,'create_jurusan'])->name('univeritas.jurusan.create');

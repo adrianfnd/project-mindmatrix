@@ -61,7 +61,7 @@
             <li class="nav-item">
               <a href="{{route('admin.univeritas.dashboard',['limit_per_page' => 8])}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
-                <p>Dashboard</p>
+                <p>List Univeritas</p>
               </a>
             </li>
             <li class="nav-item">
