@@ -39,15 +39,9 @@ Minat Bakat > Settings > Create Soals
 @section('script')
 <script>
     function addRow() {
-        // Get the table body by ID
         const tableBody = document.getElementById('input_area');
-
-        // Get the number of current rows
-        const rowCount = tableBody.getElementsByTagName('tr').length;
-
-        // Create a new table row
+       const rowCount = tableBody.getElementsByTagName('tr').length;
         const newRow = document.createElement('tr');
-        // Create the cells for the new row
         newRow.innerHTML = `
                 <td scope="col" class="text-center align-middle">${rowCount + 1}</td>
                 <td scope="col">
@@ -63,8 +57,6 @@ Minat Bakat > Settings > Create Soals
                     </select>
                 </td>
             `;
-
-        // Append the new row to the table body
         tableBody.appendChild(newRow);
     }
     addRow();

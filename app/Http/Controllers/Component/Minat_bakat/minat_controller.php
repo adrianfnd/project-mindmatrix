@@ -96,16 +96,31 @@ class minat_controller extends Controller
 
     public function create_jawaban($pertanyaan , int $id_summary){
         $jawaban = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->id;
-        Jawaban::create([
+        $status = filter_var(true,FILTER_VALIDATE_BOOLEAN);
+        // check dulu
+        $check_jawaban = Jawaban::where('id_pertanyaan','=',$jawaban)->where('id_summary','=',$id_summary)->where('jawaban','=',$pertanyaan)->first();
+        if($check_jawaban != null){
+            $check_jawaban->update([
+                'status_jawaban' => $status,
+            ]);
+            return true;
+        }
+        Jawaban::updateOrCreate([
             'id_pertanyaan' => $jawaban,
             'id_summary' => $id_summary,
             'jawaban' => $pertanyaan,
+            'status_jawaban' => $status,
         ]);
         return true;
     }
     // belum beres
     public function delete_jawaban($id_jawaban){
-       $value =  jawaban::find($id_jawaban);
+       $value=jawaban::find($id_jawaban);
+       $check_log = Jawaban_log::where('id_pertanyaan','=',$id_jawaban)->get();
+       if($check_log->count() == 0){
+            $value->delete();
+            return true;
+       }
         $value->update([
             'status_jawaban' => false
         ]);

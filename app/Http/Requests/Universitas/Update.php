@@ -4,7 +4,7 @@ namespace App\Http\Requests\Universitas;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Create extends FormRequest
+class Update extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,13 @@ class Create extends FormRequest
     public function rules(): array
     {
         return [
-            'filename' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','string','unique:universitas,nama_kampus'],
-            'akreditasi' => ['required','string'],
-            'alamat' => ['required'],
-            'jurusan' => ['required','array'],
-            'jurusan.*' => ['required','exists:jurusan_universitas,id'],
+            'id' => ['required','string','exists:universitas,id'],
+            'filename' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => ['nullable','string'],
+            'akreditasi' => ['nullable','string'],
+            'alamat' => ['nullable'],
+            'jurusan' => ['nullable','array'],
+            'jurusan.*' => ['nullable','exists:jurusan_universitas,id'],
         ];
     }
 }

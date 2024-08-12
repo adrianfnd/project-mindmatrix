@@ -12,5 +12,6 @@ class jurusan_universitas extends Model
     protected $primaryKey = "id";
     protected $fillable = [
         'nama_jurusan',
+        'status',
     ];
 }

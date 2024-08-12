@@ -29,6 +29,14 @@ class univeritasController extends Controller
         }
         return Storage::disk('public')->url($filename);
     }
+    private function delete_storage_image($filename){
+        $path = $filename;
+        if(!Storage::disk('public')->exists($path)){
+            abort(404);
+        }
+        $delete = Storage::disk('public')->delete($filename);
+        return true;
+    }
     public function search_universitas(String $search = null , int $limit_per_page){
         if(!empty($search)){
             $value = Universitas::where('nama_kampus','like','%'.$search.'%')->paginate($limit_per_page);
@@ -60,9 +68,60 @@ class univeritasController extends Controller
 
     public function detail_universitas($id){
         $value = Universitas::find($id);
+        $value['image_logo'] = $this->get_storage_image($value['image_logo']);
         return $value;
     }
+
+
+    public function update_universitas(String $id , String $nama ,String $akreditasi,$alamat , Array $jurusan,$file){
+        $universitas = Universitas::find($id);
+        if($nama != null){
+            $universitas->update([
+                'nama_kampus' => $nama,
+            ]);
+        }
+        if($akreditasi != null){
+            $universitas->update([
+                'akreditasi' => $akreditasi,
+            ]);
+        }
+        if($alamat != null){
+            $universitas->update([
+                'alamat' => $alamat,
+            ]);
+        }
+        if($file != null){
+            $delete = $this->delete_storage_image($universitas['image_logo']);
+            $update_image = $this->storage_image($file);
+            $universitas->update([
+                'image_logo' => $update_image,
+            ]);
+        }
+        if($jurusan != null){
+           $list_jurusan = $universitas->jurusan;
+           foreach($list_jurusan as $list){
+                $find_log = Log_Universitas::where('id_universitas' ,'=',$universitas->id)->where('id_jurusan','=',$list['id'])->delete();
+           }
+           foreach($jurusan as $value){
+                Log_Universitas::create([
+                    'id_universitas' => $universitas->id,
+                    'id_jurusan' => $value
+                ]);
+           }
+        }
+        return true;
+    }
+
+
     public function send_jurusan(String $name){
+        $status = filter_var(false,FILTER_VALIDATE_BOOLEAN);
+        $check_jurusan = Jurusan::where('nama_jurusan','=',$name)->first();
+        if($check_jurusan != null){
+            $check_jurusan->update([
+                'status' => $status,
+            ]);
+            return true;
+        }
        $jurusan = Jurusan::create([
         'nama_jurusan' => $name,
        ]); 
@@ -75,11 +134,12 @@ class univeritasController extends Controller
     }
 
     public function search_jurusan($search , int $limit_per_page){
+        $status = filter_var(true,FILTER_VALIDATE_BOOLEAN);
+        $jurusan = Jurusan::whereNot('status','=',$status);
         if(!empty($search)){
-            $value = Jurusan::where('nama_jurusan','like','%'.$search.'%')->paginate($limit_per_page);
-        }else{
-            $value = Jurusan::paginate($limit_per_page);
+            $value = $jurusan->where('nama_jurusan','like','%'.$search.'%');
         }
+        $value = $jurusan->paginate($limit_per_page);
         return $value;
     }
     public function send_update_jurusan($id,$name){
@@ -89,8 +149,16 @@ class univeritasController extends Controller
         return true;
     }
     public function send_delete_jurusan($id){
-        //  belum beres
-        $value = Jurusan::find($id)->delete();
+        $jurusan = Jurusan::find($id);
+        //  belum beres 
+        $check_log = Log_Universitas::where('id_jurusan','=',$id)->get();
+        if($check_log->count() == 0){
+            $value = $jurusan->delete();
+        }else{
+            $value = $jurusan->update([
+                'status' => true
+            ]);
+        }
         return true;
     }
 }

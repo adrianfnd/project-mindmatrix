@@ -1,38 +1,47 @@
 @extends('Admin.Template.app')
 @section('title')
-Universitas > Create
+Universitas > @if(isset($universitas)) Update > {{$universitas['nama_kampus']}} @else  Create @endif
 @endsection
 @section('content')
 <div class="container-fluid full-height d-flex justify-content-center align-items-center">
-    <form enctype="multipart/form-data" action="{{route('admin.univeritas.dashboard.create.send')}}" method="POST">
+    <form enctype="multipart/form-data" action="@if(isset($universitas)){{route('admin.univeritas.dashboard.update.send')}} @else {{route('admin.univeritas.dashboard.create.send')}}@endif" method="POST">
         @csrf
         @method('POST')
+        @if(isset($universitas))
+            <input type="hidden" name="id" value="{{$universitas['id']}}">
+        @endif
         <div class="card" style="width: 40rem;">
             <div class="card-header">
-                <h4 class="card-title text-center">Create Universitas</h4>
+                <h4 class="card-title text-center">@if(isset($universitas)) Update @else Create Universitas @endif</h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-5">
+                        @if(isset($universitas))
+                        <img id="previewImage" src="{{$universitas['image_logo']}}" alt="Card image" class="mb-3"
+                            height="300" width="200">
+                        <input type="file" id="myFile" name="filename" accept="image/*">
+                        @else
                         <img id="previewImage" src="https://via.placeholder.com/500x200" alt="Card image" class="mb-3"
                             height="300" width="200">
                         <input type="file" id="myFile" name="filename" accept="image/*">
+                        @endif
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="name">Nama Universitas</label>
                             <input type="text" class="form-control" name="name" id="name"
-                                placeholder="Masukan nama universitas">
+                                placeholder="Masukan nama universitas"@if(isset($universitas)) value="{{$universitas['nama_kampus']}}" @endif>
                         </div>
                         <div class="form-group">
                             <label for="akreditasi">Akreditasi</label>
                             <input type="text" class="form-control" name="akreditasi" id="akreditasi"
-                                placeholder="Masukan Akreditasi Kampus Anda">
+                                placeholder="Masukan Akreditasi Kampus Anda"@if(isset($universitas))value="{{$universitas['akreditasi']}}" @endif>
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
                             <textarea class="form-control" name="alamat" id="alamat" rows="3"
-                                placeholder="Masukan alamat anda"></textarea>
+                                placeholder="Masukan alamat anda">@if(isset($universitas)){{$universitas['alamat']}}@endif</textarea>
                         </div>
                     </div>
                 </div>
@@ -47,6 +56,30 @@ Universitas > Create
             </div>
             <hr>
             <div id="pilihan-container">
+                @if(isset($universitas))
+                @foreach($universitas->jurusan as $key => $value)
+                <div class="row mb-3 pilihan-item">
+                    <div class="col-3 row mb-0 text-center align-items-center">
+                        <h5 class="m-0">Pilihan {{$key + 1}} :</h5>
+                    </div>
+                    <div class="col me-3">
+                        <select class="form-select" name="jurusan[0]" aria-label="Default select example">
+                            <option selected>Open this select Jurusan</option>
+                            @foreach ($jurusans as $jurusan)
+                                <option value="{{$jurusan['id']}}" @if($value['id'] == $jurusan['id'])selected @endif>{{$jurusan['nama_jurusan']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-2 row mb-0 text-center align-items-center">
+                        <button class="btn btn-danger rounded remove-pilihan" disabled>
+                            <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png" alt="icon_delete"
+                                height="18">
+                        </button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                @endforeach
+                @else
                 <div class="row mb-3 pilihan-item">
                     <div class="col-3 row mb-0 text-center align-items-center">
                         <h5 class="m-0">Pilihan 1 :</h5>
@@ -67,6 +100,7 @@ Universitas > Create
                     </div>
                     <div class="col-1"></div>
                 </div>
+                @endif
             </div>
 
             <div class="card-footer">

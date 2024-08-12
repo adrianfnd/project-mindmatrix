@@ -10,9 +10,9 @@ Univeritas > Dashboard
                 @csrf
                 @method('GET')
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="Recipient's username"
+                    <input type="text" class="form-control" name="search" placeholder="Masukan nama kampus yang mau di cari "
                         aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <input type="hidden" name="limit_per_page" value="10" />
+                    <input type="hidden" name="limit_per_page" value="8" />
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i
                             class="fa-solid fa-magnifying-glass"></i></button>
                 </div>

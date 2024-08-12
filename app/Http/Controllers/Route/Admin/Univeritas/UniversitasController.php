@@ -15,6 +15,7 @@ use App\Http\Requests\Jurusan\Delete as R_J_Delete;
 // Request Universitas
 use App\Http\Requests\Universitas\Create as R_U_Create;
 use App\Http\Requests\Universitas\Detail as R_U_Detail;
+use App\Http\Requests\Universitas\Update as R_U_Update;
 
 
 class UniversitasController extends C_univeritas
@@ -35,13 +36,6 @@ class UniversitasController extends C_univeritas
         return view('Admin.Univeritas.create_universitas',['jurusans' => $jurusans]);
     }
 
-    public function page_update_universitas(R_U_Detail $request){
-        $value = $request->validated();
-        $universtias = $this->detail_universitas($value['id']);
-        $jurusans = $this->get_all_jurusan();
-        return view('Admin.Univeritas.create_universitas',['universitas' => $universtias,'jurusans' => $jurusans]);
-    }
-
     public function send_create_universitas(R_U_Create $request){
         $value = $request->validated();
         $file = $request->file('filename');
@@ -49,7 +43,24 @@ class UniversitasController extends C_univeritas
         return redirect()->route('admin.univeritas.dashboard',['limit_per_page' => 8]);
     }
 
+    public function page_update_universitas(R_U_Detail $request){
+        $value = $request->validated();
+        $universtias = $this->detail_universitas($value['id']);
+        $jurusans = $this->get_all_jurusan();
+        return view('Admin.Univeritas.create_universitas',['universitas' => $universtias,'jurusans' => $jurusans]);
+    }
 
+    public function send_update_universitas(R_U_Update $request){
+        $value = $request->validated();
+        $value['id'] = (isset($value['id'])) ? $value['id'] : null ;
+        $value['name'] = (isset($value['name'])) ? $value['name'] : null ;
+        $value['akreditasi'] = (isset($value['akreditasi'])) ? $value['akreditasi'] : null ;
+        $value['alamat'] = (isset($value['alamat'])) ? $value['alamat'] : null ;
+        $value['jurusan'] = (isset($value['jurusan'])) ? $value['jurusan'] : null ;
+        $file = (isset($value['filename'])) ? $request->file('filename') : null ;
+        $update = $this->update_universitas($value['id'],$value['name'],$value['akreditasi'],$value['alamat'],$value['jurusan'],$file);
+        return redirect()->route('admin.univeritas.dashboard',['limit_per_page' => 8]);
+    }
     public function jurusan(R_Search $request){
         $value = $request->validated();
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;

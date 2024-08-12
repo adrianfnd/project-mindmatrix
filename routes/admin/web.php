@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
         Route::get('/create',[C_Univ_Admin::class,'page_create_universitas'])->name('univeritas.dashboard.create.page');
         Route::post('/create',[C_Univ_Admin::class,'send_create_universitas'])->name('univeritas.dashboard.create.send');
         Route::get('/detail',[C_Univ_Admin::class,'page_update_universitas'])->name('univeritas.dashboard.update.page');
+        Route::post('/detail',[C_Univ_Admin::class,'send_update_universitas'])->name('univeritas.dashboard.update.send');
         Route::group((['prefix' => 'jurusan']),function(){
             Route::get('/',[C_Univ_Admin::class,'jurusan'])->name('univeritas.jurusan');
             Route::post('/create',[C_Univ_Admin::class,'create_jurusan'])->name('univeritas.jurusan.create');

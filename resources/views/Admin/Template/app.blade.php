@@ -86,6 +86,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           break;
         case '/admin/universitas':
         case '/admin/universitas/create':
+        case '/admin/universitas/detail':
           activateNavItem(['/admin/universitas?l', '#univeritas']);
           break;
         case '/admin/user':

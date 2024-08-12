@@ -101,10 +101,11 @@ Univeritas > Jurusan
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('admin.univeritas.jurusan.create') }}" method="POST">
-                        @csrf
-                        @method('POST')
+                <form action="{{ route('admin.univeritas.jurusan.create') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-body">
+
                         <input type="hidden" name="id" value="" />
                         <div class="container-fluid">
                             <div class="row mb-3">
@@ -120,13 +121,17 @@ Univeritas > Jurusan
                                     </div>
                                 </div>
                             </div>
-                            <div class="row justify-content-end">
-                                <button type="button" class="btn btn-default mx-2" data-dismiss="modal">Close</button>
-                                <button id="submit_button" type="submit" class="btn btn-success mx-2">Create</button>
-                            </div>
+
                         </div>
-                    </form>
-                </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success mx-2">Create</button>
+                            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@ class Create extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => ['required','string','unique:jurusan_universitas,nama_jurusan'],
+            'nama' => ['required','string'],
         ];
     }
 }
