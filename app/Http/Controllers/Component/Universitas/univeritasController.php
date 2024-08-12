@@ -57,6 +57,11 @@ class univeritasController extends Controller
         }
         return true;
     }
+
+    public function detail_universitas($id){
+        $value = Universitas::find($id);
+        return $value;
+    }
     public function send_jurusan(String $name){
        $jurusan = Jurusan::create([
         'nama_jurusan' => $name,

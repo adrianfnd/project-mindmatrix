@@ -15,16 +15,17 @@ Minat Bakat > Settings > {{$summary['nama_bakat']}} > Edit
                 <input type="hidden" name="id" value="{{$summary['id']}}">
                 <div class="row mb-3">
                     <div class="col">
-                        <div class="form-floating mb-3">
+                        <div class="form-group mb-3">
                             <label for="nama_summary">Summary</label>
                             <input type="text" class="form-control" name="nama" id="nama_summary"
                                 placeholder="Nama Summary" value="{{$summary['nama_bakat']}}">
+                           
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <div class="form-floating">
+                        <div class="form-group">
                             <label for="floatingTextarea2">Keterangan</label>
                             <textarea class="form-control"name ="keterangan" placeholder="Keterangan summary" id="keterangan"
                                 style="height: 100px">{{$summary['keterangan']}}</textarea>

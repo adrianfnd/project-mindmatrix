@@ -14,6 +14,7 @@ use App\Http\Requests\Jurusan\Update as R_J_Update;
 use App\Http\Requests\Jurusan\Delete as R_J_Delete;
 // Request Universitas
 use App\Http\Requests\Universitas\Create as R_U_Create;
+use App\Http\Requests\Universitas\Detail as R_U_Detail;
 
 
 class UniversitasController extends C_univeritas
@@ -32,6 +33,13 @@ class UniversitasController extends C_univeritas
     public function page_create_universitas(){
         $jurusans = $this->get_all_jurusan();
         return view('Admin.Univeritas.create_universitas',['jurusans' => $jurusans]);
+    }
+
+    public function page_update_universitas(R_U_Detail $request){
+        $value = $request->validated();
+        $universtias = $this->detail_universitas($value['id']);
+        $jurusans = $this->get_all_jurusan();
+        return view('Admin.Univeritas.create_universitas',['universitas' => $universtias,'jurusans' => $jurusans]);
     }
 
     public function send_create_universitas(R_U_Create $request){

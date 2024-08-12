@@ -75,10 +75,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $('#dashboard').addClass('active');
           break;
         case '/admin/minat_bakat/setting_page':
-          activateNavItem(['/admin/minat_bakat/setting_page?l', '#minat_bakat']);
-          break;
         case '/admin/minat_bakat/setting_page/create':
-          activateNavItem(['/admin/minat_bakat/setting_page/create?l', '#minat_bakat']);
+          activateNavItem(['/admin/minat_bakat/setting_page?l', '#minat_bakat']);
           break;
         case '/admin/minat_bakat':
           activateNavItem(['/admin/minat_bakat?l', '#minat_bakat']);
@@ -87,8 +85,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           activateNavItem(['/admin/universitas/jurusan?l', '#univeritas']);
           break;
         case '/admin/universitas':
-          activateNavItem(['/admin/universitas?l', '#univeritas']);
-          break;
         case '/admin/universitas/create':
           activateNavItem(['/admin/universitas?l', '#univeritas']);
           break;

@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+
+// model 
+use App\Models\jurusan_universitas as Jurusan;
+
 
 class universitas extends Model
 {
@@ -16,4 +22,9 @@ class universitas extends Model
         'akreditasi',
         'alamat',
     ];
+
+    public function jurusan() : BelongsToMany
+    {
+        return $this->belongsToMany(Jurusan::class,'log_jurusan_universitas','id_universitas','id_jurusan');
+    }
 }

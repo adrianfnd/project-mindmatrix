@@ -44,27 +44,31 @@ Minat Bakat > Settings
                         @csrf
                         @method('POST')
                         <div class="container-fluid">
-                            <div class="row justify-content-end">
-                                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <div class="row mb-1">
+                                <div class="col">
+                                    <div class=" d-flex align-items-center justify-content-start">
+                                        <label class="mb-0">Description Test</label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex align-items-center justify-content-end">
+                                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
                                     <input type="hidden" name="id"
                                         value="{{(isset($description)) ? $description['id'] : ""}}">
-                                    <div class="row">
-                                        <label>Description Test</label>
-                                    </div>
-                                    <div class="row">
-                                        <textarea name="desc" class="form-control" cols="50"
-                                            rows="10">{{(isset($description)) ? $description['desc_test'] : ""}}</textarea>
-                                    </div>
+                                    <textarea name="desc" class="form-control" cols="50"
+                                        rows="10">{{(isset($description)) ? $description['desc_test'] : ""}}</textarea>
                                 </div>
                             </div>
-                            <div class="row justify-content-between">
-                                <button type="submit" class="btn btn-success">Upload</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="row ">
+                                <div class="col d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-success">Upload</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -194,7 +198,6 @@ Minat Bakat > Settings
                                 @else
                                     <!-- belum beres -->
                                 @endif
-
                             </tbody>
 
                         </table>
@@ -206,8 +209,8 @@ Minat Bakat > Settings
     </div>
     <!-- End list soal -->
     <!-- Modal -->
-    <div class="modal fade" id="modal_edit_soal" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">>
+    <div class="modal fade" id="modal_edit_soal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -215,34 +218,37 @@ Minat Bakat > Settings
                         @csrf
                         @method('POST')
                         <div class="container-fluid">
-                            <div class="row justify-content-end">
-                                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
                             <div class="row mb-3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <div class="col">
+                                    <div class="d-flex align-items-center justify-content-start">
+                                        <label class="mb-0">Edit Soal</label>
                                     </div>
-                                    <input type="hidden" name="id_soal" id="id_soal">
-                                    <textarea name="pertanyaan" class="form-control" placeholder="Soal" id="pertanyaan"
-                                        required></textarea>
                                 </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <select name="id_summary" class="form-control" id="summary" required>
-                                        @foreach ($summarys as $value)
-                                            <option value="{{$value['id']}}">{{$value['nama_bakat']}}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="col d-flex align-items-center justify-content-end">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                             </div>
-                            <div class="row justify-content-between">
-                                <button type="submit" class="btn btn-success">Upload</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="form-floating mb-3">
+                                <input type="hidden" name="id_soal" id="id_soal">
+                                <textarea name="pertanyaan" class="form-control" placeholder="Soal" id="pertanyaan"
+                                    rows="10" required></textarea>
+                                <label for="pertanyaan">Pertanyaan</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select name="id_summary" class="form-control" id="summary" required>
+                                    @foreach ($summarys as $value)
+                                        <option value="{{$value['id']}}">{{$value['nama_bakat']}}</option>
+                                    @endforeach
+                                </select>
+                                <label for="summary">Summary</label>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-success">Upload</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -250,18 +256,28 @@ Minat Bakat > Settings
             </div>
         </div>
     </div>
+
 </div>
 @endsection
 @section('script')
 <script>
-    $('.edit-btn').click(function () {
-        let id = $(this).data('id');
-        let nama = $(this).data('nama');
-        let id_summary = $(this).data('id_summary');
-        $('#id_soal').val(id);
-        $('#pertanyaan').val(nama);
-        $('#summary').val(id_summary);
-        $('#modal_edit_soal').modal('show');
+    document.addEventListener('DOMContentLoaded', function () {
+        var editButtons = document.querySelectorAll('.edit-btn');
+
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = this.getAttribute('data-id');
+                var nama = this.getAttribute('data-nama');
+                var id_summary = this.getAttribute('data-id_summary');
+
+                document.getElementById('id_soal').value = id;
+                document.getElementById('pertanyaan').value = nama;
+                document.getElementById('summary').value = id_summary;
+
+                var modal = new bootstrap.Modal(document.getElementById('modal_edit_soal'));
+                modal.show();
+            });
+        });
     });
 </script>
 @endsection

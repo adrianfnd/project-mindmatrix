@@ -43,7 +43,7 @@ Univeritas > Jurusan
                                 </tr>
                             </thead>
                             <tbody>
-                            @if ($jurusans->count() != 0)
+                                @if ($jurusans->count() != 0)
                                     @foreach ($jurusans->items() as $value)
                                         <tr>
                                             <td scope="col" class="text-center">
@@ -54,25 +54,24 @@ Univeritas > Jurusan
                                                 <div class="row">
                                                     <div class="col m-0 p-0">
                                                         <button class="btn btn-warning rounded edit-btn"
-                                                        data-id="{{$value['id']}}" 
-                                                        data-nama="{{$value['nama_jurusan']}}">
+                                                            data-id="{{$value['id']}}" data-nama="{{$value['nama_jurusan']}}">
                                                             <img src="   https://cdn-icons-png.flaticon.com/512/1159/1159633.png "
                                                                 alt="icon_edit" height="18">
                                                         </button>
                                                     </div>
                                                     <div class="col m-0 p-0">
-                                                    <div class="col m-0 p-0">
-                                                        <form action="{{route('admin.univeritas.jurusan.delete')}}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('POST')
-                                                            <input type="hidden" name="id" value="{{$value['id']}}" />
-                                                            <button class="btn btn-danger rounded">
-                                                                <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png"
-                                                                    alt="icon_delete" height="18">
-                                                            </button>
-                                                        </form>
-                                                    </div> 
+                                                        <div class="col m-0 p-0">
+                                                            <form action="{{route('admin.univeritas.jurusan.delete')}}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('POST')
+                                                                <input type="hidden" name="id" value="{{$value['id']}}" />
+                                                                <button class="btn btn-danger rounded">
+                                                                    <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png"
+                                                                        alt="icon_delete" height="18">
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -91,49 +90,51 @@ Univeritas > Jurusan
         </div>
     </div>
     <!-- End list jurusan-->
-     <!-- modal Create -->
-     <div class="modal fade" id="modal_create_jurusan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Create Jurusan</h5> 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('admin.univeritas.jurusan.create') }}"method="POST">
-                    @csrf
-                    @method('POST')
-                    <input type="hidden" name="id" value=""/>
-                    <div class="container-fluid">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <div class="row">
-                                    <label>Nama Jurusan</label>
-                                </div>
-                                <div class="row">
-                                    <div class="input-group flex-nowrap">
-                                        <input type="text" class="form-control" placeholder="Nama jurusan" name="nama" aria-label="nama jurusan" aria-describedby="addon-wrapping">
+    <!-- modal Create -->
+    <div class="modal fade" id="modal_create_jurusan" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Create Jurusan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.univeritas.jurusan.create') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" name="id" value="" />
+                        <div class="container-fluid">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <label>Nama Jurusan</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-group flex-nowrap">
+                                            <input type="text" class="form-control" placeholder="Nama jurusan"
+                                                name="nama" aria-label="nama jurusan" aria-describedby="addon-wrapping">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row justify-content-end">
+                                <button type="button" class="btn btn-default mx-2" data-dismiss="modal">Close</button>
+                                <button id="submit_button" type="submit" class="btn btn-success mx-2">Create</button>
+                            </div>
                         </div>
-                        <div class="row justify-content-end">
-                            <button type="button" class="btn btn-default mx-2" data-dismiss="modal">Close</button>
-                            <button id="submit_button" type="submit" class="btn btn-success mx-2">Create</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 @endsection
 @section('script')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var editButtons = document.querySelectorAll('.edit-btn');
         var modal = document.getElementById('modal_create_jurusan');
         var modalTitle = modal.querySelector('.modal-title');
@@ -141,44 +142,44 @@ Univeritas > Jurusan
         var inputNama = form.querySelector('input[name="nama"]');
         var hiddenInputId = form.querySelector('input[name="id"]');
         var submitButton = document.getElementById('submit_button');
-        editButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
                 var id = this.getAttribute('data-id');
                 var nama = this.getAttribute('data-nama');
                 inputNama.value = nama;
-                
+
                 if (id) {
                     submitButton.classList.remove('btn-success');
-                    submitButton.classList.add('btn-primary'); 
+                    submitButton.classList.add('btn-primary');
                     submitButton.innerText = "Update";
                     hiddenInputId.value = id;
                     modalTitle.innerText = "Edit Jurusan";
-                    form.action = "{{route('admin.univeritas.jurusan.update')}}"; 
+                    form.action = "{{route('admin.univeritas.jurusan.update')}}";
                     form.method = "POST";
-                    
+
                 } else {
                     submitButton.innerText = "Create";
                     submitButton.classList.remove('btn-primary');
                     submitButton.classList.add('btn-success');
                     hiddenInputId.value = "";
-                    modalTitle.innerText = "Create Jurusan"; 
+                    modalTitle.innerText = "Create Jurusan";
                     form.action = "{{route('admin.univeritas.jurusan.create')}}";
-                    form.method = "POST"; 
-                  
-                    
+                    form.method = "POST";
+
+
                 }
-                
+
                 $('#modal_create_jurusan').modal('show');
             });
         });
         $('#modal_create_jurusan').on('hidden.bs.modal', function () {
             modalTitle.innerText = "Create Jurusan";
-            inputNama.value = ""; 
+            inputNama.value = "";
             hiddenInputId.value = "";
             submitButton.innerText = "Create";
             submitButton.classList.remove('btn-primary');
             submitButton.classList.add('btn-success');
-            form.action = "{{route('admin.univeritas.jurusan.create')}}"; 
+            form.action = "{{route('admin.univeritas.jurusan.create')}}";
             form.method = "POST";
         });
     });

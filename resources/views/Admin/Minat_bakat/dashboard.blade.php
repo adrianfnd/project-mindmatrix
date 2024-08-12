@@ -9,7 +9,7 @@ Minat Bakat > Dashboard
     </div>
     <div class="row card mb-3">
         <div class="card-header">
-            <h5>list Soal</h5>
+            <h5>list User</h5>
         </div>
         <div class="card-body">
             <div class="row mb-2">
@@ -18,7 +18,7 @@ Minat Bakat > Dashboard
                         @csrf
                         @method('GET')
                         <div class="input-group" style="width:30rem;">
-                            <input type="text" class="form-control" name="search" placeholder="Recipient's username"
+                            <input type="text" class="form-control" name="search" placeholder="Pencarian Hasil Peserta"
                                 aria-label="Recipient's username" aria-describedby="button-addon2">
                             <input type="hidden" name="limit_per_page" value="10" />
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Serach</button>
