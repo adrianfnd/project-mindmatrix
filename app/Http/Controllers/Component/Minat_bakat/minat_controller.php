@@ -15,6 +15,7 @@ use App\Models\log_test_user as Test_log;
 use App\Models\log_jawaban_user as Jawaban_log;
 use App\Models\pilihan_jawaban as Jawaban;
 use App\Models\pilihan_summary as Summary;
+use App\Models\log_jurusan_summary as Log_Jurusan;
 
 class minat_controller extends Controller
 {
@@ -49,6 +50,17 @@ class minat_controller extends Controller
             'nama_bakat' => $nama,
             'keterangan' => $keterangan,
         ]);
+        return true;
+    }
+    public function add_jurusan_summary_send($id,Array $list_jurusan){
+        $check = Log_Jurusan::where('id_summary','=',$id)->delete();
+        foreach($list_jurusan as $jurusan){
+            Log_Jurusan::create([
+                'id_summary' => $id,
+                'id_jurusan' => $jurusan,
+            ]);
+        }
+       
         return true;
     }
     // end summary 

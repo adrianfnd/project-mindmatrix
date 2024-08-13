@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Default\Search as R_Search;
 // Request Summary
 use App\Http\Requests\Default\Edit_description as R_E_Description;
-use App\Http\requests\Summary\Update as R_S_Update;
+use App\Http\Requests\Summary\Update as R_S_Update;
+use App\Http\Requests\Summary\add_jurusan as R_S_J_Create;
 // Request Soal 
 use App\Http\Requests\Soal\Jawaban\Create_Jawaban as R_C_Soal;
 use App\Http\Requests\Soal\Jawaban\detail_jawaban as R_D_Soal;
@@ -17,7 +18,7 @@ use App\Http\Requests\Soal\Jawaban\Edit_Jawaban as R_E_Soal;
 
 // component
 use App\Http\Controllers\Component\Minat_bakat\minat_controller as C_Minat;
-
+use App\Http\Controllers\Component\Universitas\univeritasController as C_Jurusan;
 
 class MinatController extends C_Minat
 {
@@ -71,18 +72,25 @@ class MinatController extends C_Minat
             return redirect()->route('admin.minat.setting.dashboard',['limit_per_page' => 10]);
         }
         $summary = $this->get_detail_summary($id);
-        return view('Admin.Minat_bakat.edit_summary',['summary' => $summary]);
+        $C_Jurusan = new C_Jurusan();
+        $jurusans = $C_Jurusan->get_all_jurusan();
+        return view('Admin.Minat_bakat.edit_summary',['summary' => $summary,'jurusans' => $jurusans]);
     }
 
     public function update_summary(R_S_Update $request)
     {
         $value = $request->validated();
         $this->set_update_summary($value['id'],$value['nama'],$value['keterangan']);
-        // belum beres
         return redirect()->route('admin.minat.setting.dashboard',['limit_per_page' => 10]);
     }
-    // Summary
-
+    //  jurusan 
+    public function add_jurusan_summary(R_S_J_Create $request){
+       $value = $request->validated();
+       $this->add_jurusan_summary_send($value['id'],$value['jurusan']);
+       return redirect()->route('admin.minat.setting.summary.edit',['id' => $value['id']]);
+    }
+    // End jurusan
+    // end Summary
     // soal
     public function page_create_soal()
     {

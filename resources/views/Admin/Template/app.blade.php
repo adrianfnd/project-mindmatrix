@@ -14,7 +14,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{asset('/asset/css/adminlte/adminlte.min.css')}}">
   <link rel="stylesheet" href="{{asset('/asset/css/adminlte/all.min.css')}}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -54,7 +55,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{{asset('asset/js/adminlte/jquery/jquery.js')}}"></script>
   <script src="{{asset('asset/js/adminlte/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('asset/js/adminlte/js/adminlte.js')}}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
   <script>
     $(document).ready(function () {
       var path = window.location.pathname;
@@ -68,7 +71,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           }
         });
       }
-
+      if (path.match(/^\/admin\/minat_bakat\/setting_page\/description\/\d+\/edit$/)) {
+        path = '/admin/minat_bakat/setting_page/create';
+      }
       // Determine which menu to activate based on the path
       switch (path) {
         case '/admin':

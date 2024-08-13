@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\jurusan_universitas as Jurusan;
 use App\Models\universitas as Universitas;
 use App\Models\log_jurusan_universitas as Log_Universitas;
-
+use App\Models\log_jurusan_summary as Log_Summary;
 
 class univeritasController extends Controller
 {
@@ -150,9 +150,9 @@ class univeritasController extends Controller
     }
     public function send_delete_jurusan($id){
         $jurusan = Jurusan::find($id);
-        //  belum beres 
+        $check_log_summary = Log_Summary::where('id_jurusan',$id)->get();
         $check_log = Log_Universitas::where('id_jurusan','=',$id)->get();
-        if($check_log->count() == 0){
+        if($check_log->count() == 0 || $check_log_summary->count() == 0){
             $value = $jurusan->delete();
         }else{
             $value = $jurusan->update([

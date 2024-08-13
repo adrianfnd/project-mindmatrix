@@ -20,9 +20,9 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
             Route::post('/edit', [C_M_Admin::class, 'edit_soal'])->name('minat.setting.soal.edit');
             Route::group(['prefix' => 'description'],function(){
                 Route::post('/', [C_M_Admin::class, 'edit_description'])->name('minat.setting.description');
-                // belum beres
                 Route::get('/{id}/edit',[C_M_Admin::class,'page_edit_summary'])->name('minat.setting.summary.edit');
                 Route::post('/{id}/edit',[C_M_Admin::class,'update_summary'])->name('minta.setting.summary.edit.update');
+                Route::post('/{id}/add/jurusan',[C_M_Admin::class,'add_jurusan_summary'])->name('minta.setting.summary.jurusan.send');
             });
         });
     });
@@ -32,7 +32,6 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
         Route::post('/delete', [C_U_Admin::class, 'delete_user'])->name('user.delete');
     });
     Route::group((['prefix' => 'universitas']),function() {
-        // belum beres
         Route::get('/',[C_Univ_Admin::class,'dashboard'])->name('univeritas.dashboard');
         Route::get('/create',[C_Univ_Admin::class,'page_create_universitas'])->name('univeritas.dashboard.create.page');
         Route::post('/create',[C_Univ_Admin::class,'send_create_universitas'])->name('univeritas.dashboard.create.send');
