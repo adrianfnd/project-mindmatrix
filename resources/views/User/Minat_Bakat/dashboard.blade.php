@@ -35,44 +35,64 @@ Minat Bakat
         </div>
     </div>
     <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        @foreach ($keterangans as $keterangan )
-                            <div class="row mb-2">
-                                <div class="col">
-                                <button type="button" class="col btn btn-primary text-left" data-bs-toggle="button" id="button-{{ $keterangan['id'] }}">
-                                    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    @foreach ($keterangans as $keterangan)
+                                    <div class="row mb-2">
                                         <div class="col">
-                                                {{$keterangan['nama_bakat']}}
-                                        </div>
-                                        <div class="col">
-                                            <i class="col text-right right fas fa-angle-down"></i>
+                                            <button type="button" class="col btn btn-primary text-left" data-bs-toggle="button"
+                                                id="button-{{ $keterangan['id'] }}">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{$keterangan['nama_bakat']}}
+                                                    </div>
+                                                    <div class="col">
+                                                        <i class="col text-right right fas fa-angle-down"></i>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                            <div class="keterangan-wrapper" id="keterangan-{{ $keterangan['id'] }}"
+                                                style="display: none;">
+                                                <p class="keterangan my-2">
+                                                    {{$keterangan['keterangan']}}
+                                                </p>
+                                                @if($keterangan['jurusan'] != null)
+                                                                            @php
+                                                                                $jurusanArray = json_decode($keterangan['jurusan'], true);
+                                                                            @endphp
+                                                                            @if(is_array($jurusanArray))
+                                                                                <p><b><strong>Rekomendasi Jurusan : </strong></b>
+                                                                                    <span class="list_jurusan">{{ implode(', ', $jurusanArray) }}</span>
+                                                                                </p>
+                                                                            @endif
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                                </button>
-                                    <p class="keterangan" id="keterangan-{{ $keterangan['id'] }}" style="display: none;">{{$keterangan['keterangan']}}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+
+
+                    @endforeach
                 </div>
             </div>
+        </div>
     </div>
 </div>
 @endsection
 @section('script')
 <script>
     document.querySelectorAll('button[id^="button-"]').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const index = this.id.split('-')[1];
-            const keterangan = document.getElementById('keterangan-' + index);
-            if (keterangan.style.display === 'none' || keterangan.style.display === '') {
-                keterangan.style.display = 'block';
+            const keteranganWrapper = document.getElementById('keterangan-' + index);
+
+            if (keteranganWrapper.style.display === 'none' || keteranganWrapper.style.display === '') {
+                keteranganWrapper.style.display = 'block';
             } else {
-                keterangan.style.display = 'none';
+                keteranganWrapper.style.display = 'none';
             }
         });
     });
+
 </script>
 @endsection

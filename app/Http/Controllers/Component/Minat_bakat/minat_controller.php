@@ -34,10 +34,17 @@ class minat_controller extends Controller
     // summary
     public function get_summary(){
         $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat','keterangan')->get();
-        // jumlah soal 
         foreach($value as $summary){
             $jumlah_soal = Jawaban::where('id_summary','=',$summary['id'])->whereNot('status_jawaban','=',0)->count();
             $summary['jumlah_soal'] = $jumlah_soal;
+            $log_jurusan = Log_Jurusan::where('id_summary','=',$summary['id'])->get();
+            if($log_jurusan->count() == 0){
+               $summary['jurusan'] = null;
+            }else{
+                foreach($log_jurusan as $key => $jurusan){
+                    $summary['jurusan'][$key] = $jurusan->jurusan->nama_jurusan;
+                }
+            }
         }
         return $value;
     }

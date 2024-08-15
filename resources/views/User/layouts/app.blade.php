@@ -53,14 +53,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{{asset('asset/js/adminlte/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('asset/js/adminlte/js/adminlte.js')}}"></script>
   <script>
+    
     $(document).ready(function () {
-      // Check if the current URL path matches the specified patterns
       var path = window.location.pathname;
-      if (path === '/user') {
-        $('#dashboard').addClass('active');
+
+      // Function to add active and menu-open classes
+      function activateNavItem(pathPatterns, menuId) {
+        $('.nav-item').each(function () {
+          var linkPath = $(this).find('a').attr('href');
+          if (pathPatterns.some(pattern => path.startsWith(pattern) || linkPath.includes(pattern))) {
+            $(this).addClass('menu-open').find('a').first().addClass('active');
+          }
+        });
       }
-      if(path === '/user/minat_bakat'){
-        $('#minat_bakat').addClass('active');
+      
+      switch (path) {
+        case '/user':
+          $('#dashboard').addClass('active');
+          break;
+        case '/user/minat_bakat':
+          $('#minat_bakat').addClass('active');
+          break;
+        case '/user/univeritas':
+          activateNavItem(['/user/univeritas?l', '#universitas']);
+          break;
+        default:
+          $('#dashboard').addClass('active');
+          break;
       }
     });
   </script>

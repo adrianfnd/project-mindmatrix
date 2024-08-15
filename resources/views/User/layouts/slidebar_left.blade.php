@@ -29,6 +29,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a href="{{route('user.univeritas.dashboard',['limit_per_page' => 8])}}" class="nav-link" id="universitas">
+              <i class="nav-icon fa fa-solid fa-person-hiking"></i>
+              <p>
+                Univeritas
+              </p>
+            </a>
+          </li>
         <!-- Untuk Admin Setting -->
 
         <!-- End item -->
