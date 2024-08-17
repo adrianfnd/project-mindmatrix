@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 // Guest
 use App\Http\Controllers\Route\Guest\GuestController as C_Guest;
 
+Route::get('/test',function (){
+    return view('Admin.layouts.app');
+});
+
 Route::get('/developer',function (){
     return view('Admin.Settings.User.dashboard');
 });

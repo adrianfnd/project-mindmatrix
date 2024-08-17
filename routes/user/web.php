@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Route\User\UserController as C_User;
-use App\Http\Controllers\Route\User\Minat_bakat\minatBakatContorller as C_U_MinatBakat;
+use App\Http\Controllers\Route\User\Minat_bakat\minatController as C_U_MinatBakat;
 
 Route::group(['middleware' => ['auth:sanctum', 'Role:user']], function () {
     Route::get('/',[C_User::class,'dashboard'])->name('dashboard');

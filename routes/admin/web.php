@@ -23,12 +23,15 @@ Route::group(['middleware' => ['auth:sanctum', 'Role:admin']], function () {
     Route::group((['prefix' => 'user']), function () {
         Route::get('/', [C_U_Admin::class, 'dashboard'])->name('user.dashboard');
         Route::post('/create', [C_U_Admin::class, 'create_user'])->name('user.create');
+        Route::post('/edit', [C_U_Admin::class, 'edit_user'])->name('user.edit');
         Route::post('/delete', [C_U_Admin::class, 'delete_user'])->name('user.delete');
     });
     Route::group((['prefix' => 'Role']), function () {
         Route::get('/', [C_R_Admin::class, 'dashboard'])->name('role.dashboard');
         Route::get('/permission', [C_R_Admin::class, 'permission'])->name('role.permission');
         Route::post('/create', [C_R_Admin::class, 'create'])->name('role.create');
+        Route::put('/update/{id}', [C_R_Admin::class, 'update'])->name('role.update');
+        Route::delete('/delete/{id}', [C_R_Admin::class, 'delete'])->name('role.delete');
     });
 });
 ?>

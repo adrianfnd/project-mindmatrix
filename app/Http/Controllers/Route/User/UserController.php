@@ -20,7 +20,7 @@ class UserController extends C_Login
         foreach($tests as $test){
             $test['desc_test'] = $this->truncateWords($test['desc_test']);
         }
-        return view('User.dashboard',['biodata' => $biodata,'tests' => $tests]);
+        return view('user.dashboard.index',['biodata' => $biodata,'tests' => $tests]);
     }
     private function truncateWords($text,int $limit = 9){
         $words = explode(' ', $text);

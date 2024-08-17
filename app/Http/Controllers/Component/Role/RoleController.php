@@ -18,6 +18,7 @@ class RoleController extends Controller
         }
         return $role;
     }
+    
     public function saerch(String $search = null,int $limit = 10){
         $role = Role::where('name','!=','Admin');
         if($search != null){
@@ -25,5 +26,18 @@ class RoleController extends Controller
         } 
         $role = $role->paginate($limit);
         return $role;
+    }
+
+    public function update_role_name($uuid, String $role)
+    {
+        $roleModel = Role::where('uuid', $uuid)->firstOrFail();
+        $roleModel->update(['name' => $role]);
+        return $role;
+    }
+    
+    public function delete_role($uuid)
+    {
+        $roleModel = Role::where('uuid', $uuid)->firstOrFail();
+        $roleModel->delete();
     }
 }

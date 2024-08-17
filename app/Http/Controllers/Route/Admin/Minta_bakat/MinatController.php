@@ -11,12 +11,7 @@ use App\Http\Requests\Soal\Jawaban\Create_Jawaban as R_C_Soal;
 use App\Http\Requests\Soal\Jawaban\detail_jawaban as R_D_Soal;
 use App\Http\Requests\Soal\Jawaban\Edit_Jawaban as R_E_Soal;
 
-
-// component
 use App\Http\Controllers\Component\Minat_bakat\minat_controller as C_Minat;
-
-
-
 
 class MinatController extends C_Minat
 {
@@ -27,32 +22,26 @@ class MinatController extends C_Minat
         $value = $request->validated();
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
-        // controller items
+
         $users = $this->search_user($value['search'], $value['limit_per_page']);
         $questions = $this->search_question($this->search_default, $this->limit_page);
-        return view('Admin.Minat_bakat.dashboard', ['questions' => $questions, 'users' => $users], );
+        return view('admin.minat_bakat.user_test.index', ['questions' => $questions, 'users' => $users], );
     }
+
     public function setting_page(R_Search $request)
     {
         $value = $request->validated();
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : 10;
-        //  controller items
+
         $descrition = $this->get_description();
         $users = $this->search_user($this->search_default, $this->limit_page);
         $qustions = $this->search_question($value['search'], $value['limit_per_page']);
         $summarys = $this->get_summary();
-        // end controller items
-        return view('Admin.Minat_bakat.setting_page', ['description' => $descrition, 'questions' => $qustions, 'summarys' => $summarys, 'users' => $users]);
+
+        return view('admin.minat_bakat.setting_page.index', ['description' => $descrition, 'questions' => $qustions, 'summarys' => $summarys, 'users' => $users]);
     }
 
-    public function page_create_soal()
-    {
-        $summarys = $this->get_summary();
-        $qustions = $this->search_question($this->search_default, $this->limit_page);
-        $users = $this->search_user($this->search_default, $this->limit_page);
-        return view('Admin.Minat_bakat.create_soal', ['summarys' => $summarys, 'questions' => $qustions, 'users' => $users]);
-    }
     function edit_description(R_E_Description $request)
     {
         $value = $request->validated();
