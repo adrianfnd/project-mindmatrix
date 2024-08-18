@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Support\Str as Str;
 
+
 // Model
 use App\models\User as User;
+use App\Models\log_test_user as Log_test;
 
 class biodata extends Model
 {
@@ -48,6 +51,11 @@ class biodata extends Model
     public function user() : HasOne
     {
         return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function log_test_user() : HasMany
+    {
+        return $this->hasMany(Log_test::class,'id_biodata','id');
     }
 
 }

@@ -14,6 +14,8 @@ use App\Models\test_description as Test;
 use App\Models\log_test_user as Test_log;
 use App\Models\log_jawaban_user as Jawaban_log;
 use App\Models\pilihan_jawaban as Jawaban;
+use App\Models\pilihan_summary as Summary;
+use App\Models\log_jurusan_summary as Log_Jurusan;
 
 class minat_controller extends Controller
 {
@@ -29,10 +31,46 @@ class minat_controller extends Controller
         return true;
     }
 
+    // summary
     public function get_summary(){
         $value = Test::where('nama_test','=','Minat Bakat')->first()->summary()->select('id','nama_bakat','keterangan')->get();
+        foreach($value as $summary){
+            $jumlah_soal = Jawaban::where('id_summary','=',$summary['id'])->whereNot('status_jawaban','=',0)->count();
+            $summary['jumlah_soal'] = $jumlah_soal;
+            $log_jurusan = Log_Jurusan::where('id_summary','=',$summary['id'])->get();
+            if($log_jurusan->count() == 0){
+               $summary['jurusan'] = null;
+            }else{
+                foreach($log_jurusan as $key => $jurusan){
+                    $summary['jurusan'][$key] = $jurusan->jurusan->nama_jurusan;
+                }
+            }
+        }
         return $value;
     }
+    public function get_detail_summary($id){
+        $value = Summary::find($id);
+        return $value;
+    } 
+    public function set_update_summary($id,$nama,$keterangan){
+        $value = Summary::find($id)->update([
+            'nama_bakat' => $nama,
+            'keterangan' => $keterangan,
+        ]);
+        return true;
+    }
+    public function add_jurusan_summary_send($id,Array $list_jurusan){
+        $check = Log_Jurusan::where('id_summary','=',$id)->delete();
+        foreach($list_jurusan as $jurusan){
+            Log_Jurusan::create([
+                'id_summary' => $id,
+                'id_jurusan' => $jurusan,
+            ]);
+        }
+       
+        return true;
+    }
+    // end summary 
     public function search_user($search,int $limit_per_page){
         $values = Test::where('nama_test','=','Minat Bakat')->first()->log_test();
         if(!empty($search)){
@@ -51,7 +89,7 @@ class minat_controller extends Controller
     }
     public function search_question($search,int $limt_per_page)
     {
-        $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->jawaban();
+        $value = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->jawaban()->whereNot('status_jawaban','=',0);
         if(!empty($search)){
             $value = $value->where('jawaban','like','%'.$search.'%');
         }
@@ -77,18 +115,34 @@ class minat_controller extends Controller
 
     public function create_jawaban($pertanyaan , int $id_summary){
         $jawaban = Test::where('nama_test','=','Minat Bakat')->first()->pertanyaan()->first()->id;
-        Jawaban::create([
+        $status = filter_var(true,FILTER_VALIDATE_BOOLEAN);
+        // check dulu
+        $check_jawaban = Jawaban::where('id_pertanyaan','=',$jawaban)->where('id_summary','=',$id_summary)->where('jawaban','=',$pertanyaan)->first();
+        if($check_jawaban != null){
+            $check_jawaban->update([
+                'status_jawaban' => $status,
+            ]);
+            return true;
+        }
+        Jawaban::updateOrCreate([
             'id_pertanyaan' => $jawaban,
             'id_summary' => $id_summary,
             'jawaban' => $pertanyaan,
+            'status_jawaban' => $status,
         ]);
         return true;
     }
-
+    // belum beres
     public function delete_jawaban($id_jawaban){
-       $value =  jawaban::find($id_jawaban);
-        if($value == null) return false;
-        $value->delete();
+       $value=jawaban::find($id_jawaban);
+       $check_log = Jawaban_log::where('id_pertanyaan','=',$id_jawaban)->get();
+       if($check_log->count() == 0){
+            $value->delete();
+            return true;
+       }
+        $value->update([
+            'status_jawaban' => false
+        ]);
         return true;
     }
 

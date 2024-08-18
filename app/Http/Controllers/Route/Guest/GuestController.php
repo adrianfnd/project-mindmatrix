@@ -50,7 +50,7 @@ class GuestController extends Controller
         $login = new C_Login();
         $login_responses = $login->login($value['email'],$value['password']);
         if($login_responses == false){
-            return redirect()->route('guest.page')->withErrors(['pesan' => "email dan password salah !"]);
+            return redirect()->route('login.page')->withErrors(['pesan' => "email dan password salah !"]);
         }
         $check_role = $login->check_role();
         if($check_role == "admin"){
