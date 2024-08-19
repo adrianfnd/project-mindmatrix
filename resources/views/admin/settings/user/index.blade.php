@@ -113,7 +113,7 @@
                             <div class="form-group">
                                 <label for="tanggal_lahir">Date of Birth</label>
                                 <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir"
-                                    value="{{ $user->tanggal_lahir }}" required>
+                                    value="{{ \Carbon\Carbon::parse($user->tanggal_lahir)->format('Y-m-d') }}" required>
                             </div>
                         </div>
                         <div class="modal-footer">

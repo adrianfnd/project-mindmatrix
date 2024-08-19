@@ -34,7 +34,7 @@
         <!-- End Desctiption -->
 
         <!-- Modal Description -->
-        <div class="modal fade" id="modal_edit_description" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="modal_edit_description" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -58,9 +58,10 @@
                                     </div>
                                 </div>
                                 <div class="row ">
-                                    <div class="col d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-success">Upload</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <div class="col d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success mx-2">Upload</button>
+                                        <button type="button" class="btn btn-secondary mx-2"
+                                            data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +202,7 @@
         <!-- End list soal -->
 
         <!-- Modal -->
-        <div class="modal fade" id="modal_edit_soal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="modal_edit_soal" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -231,9 +232,9 @@
                                     <label for="summary">Summary</label>
                                 </div>
                                 <div class="row">
-                                    <div class="col d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-success">Upload</button>
-                                        <button type="button" class="btn btn-secondary"
+                                    <div class="col d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success mx-2">Upload</button>
+                                        <button type="button" class="btn btn-secondary mx-2"
                                             data-bs-dismiss="modal">Close</button>
                                     </div>
                                 </div>

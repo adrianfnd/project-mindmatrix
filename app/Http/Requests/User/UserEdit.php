@@ -24,7 +24,7 @@ class UserEdit extends FormRequest
     {
         return [
             'id_user' => ['required', 'exists:biodatas,id'],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->id_user, 'id')],
+            'email' => ['required', 'email'],
             'nama_lengkap' => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date_format:Y-m-d'],
         ];

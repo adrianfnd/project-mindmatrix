@@ -86,15 +86,11 @@
             @endif
         </div>
 
-        <div class="modal fade" id="modal_create_jurusan" data-backdrop="static" tabindex="-1" role="dialog"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modal_create_jurusan" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Create Jurusan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <form action="{{ route('admin.univeritas.jurusan.create') }}" method="POST">
                         @csrf
@@ -124,65 +120,107 @@
                         <div class="modal-footer">
                             <div class="col d-flex justify-content-end">
                                 <button type="submit" class="btn btn-success mx-2">Create</button>
-                                <button type="button" class="btn btn-secondary mx-2"
-                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary mx-2" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="modal fade" id="modal_edit_jurusan" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editJurusanLabel">Edit Jurusan</h5>
+                    </div>
+                    <form id="editJurusanForm" action="{{ route('admin.univeritas.jurusan.update') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="edit_jurusan_id">
+                            <div class="form-group">
+                                <label for="edit_nama_jurusan">Nama Jurusan</label>
+                                <input type="text" class="form-control" id="edit_nama_jurusan" name="nama"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var editButtons = document.querySelectorAll('.edit-btn');
-            var modal = document.getElementById('modal_create_jurusan');
-            var modalTitle = modal.querySelector('.modal-title');
-            var form = modal.querySelector('form');
-            var inputNama = form.querySelector('input[name="nama"]');
-            var hiddenInputId = form.querySelector('input[name="id"]');
-            var submitButton = document.getElementById('submit_button');
-            editButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var id = this.getAttribute('data-id');
-                    var nama = this.getAttribute('data-nama');
-                    inputNama.value = nama;
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var editButtons = document.querySelectorAll('.edit-btn');
+                const closeButton = document.querySelector('#modal_edit_jurusan .btn-secondary');
+                var modal = document.getElementById('modal_create_jurusan');
+                var modalTitle = modal.querySelector('.modal-title');
+                var form = modal.querySelector('form');
+                var inputNama = form.querySelector('input[name="nama"]');
+                var hiddenInputId = form.querySelector('input[name="id"]');
+                var submitButton = document.getElementById('submit_button');
+                editButtons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var id = this.getAttribute('data-id');
+                        var nama = this.getAttribute('data-nama');
+                        inputNama.value = nama;
 
-                    if (id) {
-                        submitButton.classList.remove('btn-success');
-                        submitButton.classList.add('btn-primary');
-                        submitButton.innerText = "Update";
-                        hiddenInputId.value = id;
-                        modalTitle.innerText = "Edit Jurusan";
-                        form.action = "{{ route('admin.univeritas.jurusan.update') }}";
-                        form.method = "POST";
+                        if (id) {
+                            submitButton.classList.remove('btn-success');
+                            submitButton.classList.add('btn-primary');
+                            submitButton.innerText = "Update";
+                            hiddenInputId.value = id;
+                            modalTitle.innerText = "Edit Jurusan";
+                            form.action = "{{ route('admin.univeritas.jurusan.update') }}";
+                            form.method = "POST";
 
-                    } else {
-                        submitButton.innerText = "Create";
-                        submitButton.classList.remove('btn-primary');
-                        submitButton.classList.add('btn-success');
-                        hiddenInputId.value = "";
-                        modalTitle.innerText = "Create Jurusan";
-                        form.action = "{{ route('admin.univeritas.jurusan.create') }}";
-                        form.method = "POST";
+                        } else {
+                            submitButton.innerText = "Create";
+                            submitButton.classList.remove('btn-primary');
+                            submitButton.classList.add('btn-success');
+                            hiddenInputId.value = "";
+                            modalTitle.innerText = "Create Jurusan";
+                            form.action = "{{ route('admin.univeritas.jurusan.create') }}";
+                            form.method = "POST";
 
 
-                    }
+                        }
 
-                    $('#modal_create_jurusan').modal('show');
+                        $('#modal_create_jurusan').modal('show');
+                    });
+                });
+                $('#modal_create_jurusan').on('hidden.bs.modal', function() {
+                    modalTitle.innerText = "Create Jurusan";
+                    inputNama.value = "";
+                    hiddenInputId.value = "";
+                    submitButton.innerText = "Create";
+                    submitButton.classList.remove('btn-primary');
+                    submitButton.classList.add('btn-success');
+                    form.action = "{{ route('admin.univeritas.jurusan.create') }}";
+                    form.method = "POST";
+                });
+
+
+                editButtons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var id = this.getAttribute('data-id');
+                        var nama = this.getAttribute('data-nama');
+
+                        document.getElementById('edit_jurusan_id').value = id;
+                        document.getElementById('edit_nama_jurusan').value = nama;
+
+                        $('#modal_edit_jurusan').modal('show');
+                    });
+                });
+
+
+                closeButton.addEventListener('click', function() {
+                    $('#modal_edit_jurusan').modal('hide');
                 });
             });
-            $('#modal_create_jurusan').on('hidden.bs.modal', function() {
-                modalTitle.innerText = "Create Jurusan";
-                inputNama.value = "";
-                hiddenInputId.value = "";
-                submitButton.innerText = "Create";
-                submitButton.classList.remove('btn-primary');
-                submitButton.classList.add('btn-success');
-                form.action = "{{ route('admin.univeritas.jurusan.create') }}";
-                form.method = "POST";
-            });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection

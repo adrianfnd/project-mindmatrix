@@ -78,7 +78,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="modal_create_jurusan" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="modal_create_jurusan" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">

@@ -139,8 +139,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal_create" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
