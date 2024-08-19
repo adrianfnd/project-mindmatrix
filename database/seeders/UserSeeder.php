@@ -17,13 +17,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user =  User::create([
-            'email' => "alfadjri28@gmail.com",
+            'email' => "admin@gmail.com",
             'password' => Hash::make("12345678"),
         ]);
         $tanggal_lahir = date('Y-m-d',strtotime("20-09-2000"));
         $biodata = Biodata::create([
             'user_id' => $user->id,
-            'nama_lengkap' => "Alfadjri Dwi Fadhilah",
+            'nama_lengkap' => "Administrator",
             'tanggal_lahir' => $tanggal_lahir,
         ]);
         $user->assignRole('admin');

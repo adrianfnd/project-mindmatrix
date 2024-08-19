@@ -46,7 +46,7 @@ class MinatController extends C_Minat
         $qustions = $this->search_question($value['search'], $value['limit_per_page']);
         $summarys = $this->get_summary();
         // end controller items
-        return view('Admin.Minat_bakat.setting_page', [
+        return view('Admin.minat_bakat.setting_page.index', [
             'summarys' => $summarys,
             'description' => $descrition, 
             'questions' => $qustions, 
@@ -72,7 +72,7 @@ class MinatController extends C_Minat
         $summary = $this->get_detail_summary($id);
         $C_Jurusan = new C_Jurusan();
         $jurusans = $C_Jurusan->get_all_jurusan();
-        return view('Admin.Minat_bakat.edit_summary',['summary' => $summary,'jurusans' => $jurusans]);
+        return view('Admin.Minat_bakat.setting_page.edit',['summary' => $summary,'jurusans' => $jurusans]);
     }
 
     public function update_summary(R_S_Update $request)
@@ -95,7 +95,7 @@ class MinatController extends C_Minat
         $summarys = $this->get_summary();
         $qustions = $this->search_question($this->search_default, $this->limit_page);
         $users = $this->search_user($this->search_default, $this->limit_page);
-        return view('Admin.Minat_bakat.create_soal', ['summarys' => $summarys, 'questions' => $qustions, 'users' => $users]);
+        return view('Admin.Minat_bakat.setting_page.create', ['summarys' => $summarys, 'questions' => $qustions, 'users' => $users]);
     }
     public function create_soal(R_C_Soal $request)
     {

@@ -16,6 +16,6 @@ class minatController extends Controller
         $C_Minat = new C_Minta();
         $result_formula = $C_Minat_Formula->get_result();
         $keterangan = $C_Minat->get_summary();
-        return view('user.minat_bakat.index',['results' => $result_formula,'keterangans' => $keterangan ]);
+        return view('User.Minat_bakat.index',['results' => $result_formula,'keterangans' => $keterangan ]);
     }
 }

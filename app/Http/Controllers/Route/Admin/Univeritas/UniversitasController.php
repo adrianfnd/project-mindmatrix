@@ -28,7 +28,7 @@ class UniversitasController extends C_univeritas
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
         $universitas = $this->search_universitas($value['search'],$value['limit_per_page']);
-        return view('Admin.Univeritas.dashboard',['universitas' => $universitas]);
+        return view('Admin.Univeritas.index',['universitas' => $universitas]);
     }
 
     public function page_create_universitas(){
@@ -40,14 +40,14 @@ class UniversitasController extends C_univeritas
         $value = $request->validated();
         $file = $request->file('filename');
         $create_value = $this->create_universitas($value['name'],$value['akreditasi'],$value['alamat'],$value['jurusan'],$file);
-        return redirect()->route('admin.univeritas.dashboard',['limit_per_page' => 8]);
+        return redirect()->route('admin.univeritas.index',['limit_per_page' => 8]);
     }
 
     public function page_update_universitas(R_U_Detail $request){
         $value = $request->validated();
         $universtias = $this->detail_universitas($value['id']);
         $jurusans = $this->get_all_jurusan();
-        return view('Admin.Univeritas.create_universitas',['universitas' => $universtias,'jurusans' => $jurusans]);
+        return view('Admin.Univeritas.create',['universitas' => $universtias,'jurusans' => $jurusans]);
     }
 
     public function send_update_universitas(R_U_Update $request){
@@ -66,7 +66,7 @@ class UniversitasController extends C_univeritas
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
         $jurusans = $this->search_jurusan($value['search'],$value['limit_per_page']);
-        return view('Admin.Univeritas.jurusan',['jurusans' => $jurusans]);
+        return view('Admin.jurusan.index',['jurusans' => $jurusans]);
     }
 
     public function create_jurusan(R_J_Create $request){

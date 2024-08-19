@@ -1,12 +1,12 @@
-@extends('Admin.Template.app')
+@extends('User.layouts.app')
 @section('title')
 Univeritas > Dashboard
 @endsection
 @section('content')
 <div class="container-fluid">
     <div class="row mb-3">
-        <div class="col-10">
-            <form action="{{route('admin.univeritas.dashboard', ['limit_per_page' => 8])}}" method="get">
+        <div class="col">
+            <form action="#" method="get">
                 @csrf
                 @method('GET')
                 <div class="input-group">
@@ -17,11 +17,6 @@ Univeritas > Dashboard
                             class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
-
-        </div>
-        <div class="col-2 d-flex justify-content-end align-items-start">
-            <a href="{{route('admin.univeritas.dashboard.create.page')}}" type="button"
-                class="btn btn-primary w-100">Create Univeritas</a>
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -113,10 +108,6 @@ Univeritas > Dashboard
                 </div>
                 <div class="modal-footer">
                     <div class="col d-flex justify-content-between">
-                        <form action="{{route('admin.univeritas.dashboard.update.page')}}" method="get">
-                            <input type="hidden" name="id" id="modal_id">
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
-                        </form>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>

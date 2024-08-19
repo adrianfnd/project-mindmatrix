@@ -2,47 +2,23 @@
 
 @section('breadcrumb', 'Minat Bakat')
 @section('title', 'Settings Page')
-
 @section('content')
     <div class="container-fluid">
-        <div class="row col mb-3">
-            <div class="row col d-flex justify-content-between">
-                <div class="col card m-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="row">Total Soal</h5>
-                                <h3 class="row col text-center">{{ $questions->count() }}</h>
-                            </div>
-                            <div class="col d-flex justify-content-center">
-                                <img src="{{ asset('/assets/image_asset/icon_Soal.png') }}" class="m-0" alt="icon Soal"
-                                    width="125">
-                            </div>
-                        </div>
+        <!-- Desctiotion -->
+        <div class="row card mb-3">
+            <div class="card-header ">
+                <div class="row">
+                    <div class="col">
+                        <h5>Description Minat bakat</h5>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#modal_edit_description">
+                            <img src="https://cdn-icons-png.flaticon.com/512/40/40031.png" alt="icon_add" width="20"
+                                class="m-1" /> Edit Description
+                        </button>
                     </div>
                 </div>
-                <div class="col card m-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="row">Total User Mengerjakan</h5>
-                                <h3 class="row col text-center">{{ $users->count() }}</h>
-                            </div>
-                            <div class="col d-flex justify-content-center">
-                                <img src="{{ asset('/assets/image_asset/icon_total_user.png') }}" class="m-0"
-                                    alt="icon Soal" width="125">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Description Minat Bakat</h5>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_edit_description">
-                    <i class="fas fa-edit me-1"></i> Edit Description
-                </button>
             </div>
             <div class="card-body">
                 @if (isset($description))
@@ -50,30 +26,120 @@
                 @else
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati possimus quisquam ipsa amet
                         repudiandae neque ut culpa exercitationem, nihil natus hic laborum voluptates vitae harum! Sit
-                        tempore excepturi maxime necessitatibus.</p>
+                        tempore
+                        excepturi maxime necessitatibus.</p>
                 @endif
             </div>
         </div>
+        <!-- End Desctiption -->
 
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">List Soal</h5>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_create_soal">
-                    <i class="fas fa-plus me-1"></i> Create Soal
-                </button>
+        <!-- Modal Description -->
+        <div class="modal fade" id="modal_edit_description" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form action="{{ route('admin.minat.setting.description') }}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <div class="container-fluid">
+                                <div class="row mb-1">
+                                    <div class="col">
+                                        <div class=" d-flex align-items-center justify-content-start">
+                                            <label class="mb-0">Description Test</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="hidden" name="id"
+                                            value="{{ isset($description) ? $description['id'] : '' }}">
+                                        <textarea name="desc" class="form-control" cols="50" rows="10">{{ isset($description) ? $description['desc_test'] : '' }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col d-flex justify-content-between">
+                                        <button type="submit" class="btn btn-success">Upload</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="row card mb-2">
+            <div class="card-header">
+                <h5>Summary</h5>
             </div>
             <div class="card-body">
-                <form id="searchForm" action="{{ route('admin.minat.setting.dashboard') }}" method="get" class="mb-4">
+                <div class="row ">
+                    @if ($summarys->count() > 0)
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">No</th>
+                                        <th scope="col">Summary</th>
+                                        <th scope="col">Jumlah Soal</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $nomer = 1; ?>
+                                    @foreach ($summarys as $value)
+                                        <tr>
+                                            <td class="text-center">
+                                                <?php echo $nomer;
+                                                $nomer++; ?>
+                                            </td>
+                                            <td>{{ $value->nama_bakat }}</td>
+                                            <td>{{ $value->jumlah_soal }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('admin.minat.setting.summary.edit', ['id' => $value['id']]) }}"
+                                                    class="btn btn-warning rounded">
+                                                    <img src=" https://cdn-icons-png.flaticon.com/512/1159/1159633.png "
+                                                        alt="icon_edit" height="18"></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="alert alert-warning text-center">No data found.</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <!-- End Summary -->
+
+        <!-- List Soal -->
+        <div class="row card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>List Soal</h5>
+            </div>
+            <div class="card-body">
+                <div class="col d-flex justify-content-end">
+                    <a href="{{ route('admin.minat.setting.soal.create') }}" type="button" class="btn btn-primary"><img
+                            src="https://cdn-icons-png.flaticon.com/512/40/40031.png" alt="icon_add" width="20"
+                            style="margin-right:5px;" /> Create Soal
+                    </a>
+                </div>
+                <form action="{{ route('admin.minat.setting.dashboard') }}" method="get">
                     @csrf
                     @method('GET')
                     <div class="row">
                         <div class="col-md-3">
                             <input type="text" class="form-control" name="search" id="searchInput"
-                                placeholder="Search question...">
+                                placeholder="Search..." aria-describedby="button-addon2">
                             <input type="hidden" name="limit_per_page" value="10" />
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary" type="submit" id="searchButton">
+                            <button class="btn btn-primary" type="submit" id="button-addon2">
                                 <i class="fas fa-search"></i> Search
                             </button>
                             <button class="btn btn-secondary" type="button" id="resetButton">
@@ -82,10 +148,9 @@
                         </div>
                     </div>
                 </form>
-
                 @if ($questions->count() > 0)
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" id="questionsTable">
+                        <table class="table table-bordered table-hover">
                             <thead>
                                 <tr class="text-center">
                                     <th scope="col">No</th>
@@ -94,25 +159,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($questions as $question)
-                                    <tr>
-                                        <td class="text-center">{{ $questions->firstItem() + $loop->index }}</td>
-                                        <td>{{ $question->jawaban }}</td>
+                                @foreach ($questions->items() as $value)
+                                    <tr class="text-center">
                                         <td class="text-center">
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning btn-sm edit-btn"
-                                                    data-id="{{ $question->id }}" data-nama="{{ $question->jawaban }}"
-                                                    data-id_summary="{{ $question->summary->id }}">
-                                                    <i class="fas fa-edit"></i>
+                                            {{ $loop->index + $questions->perPage() * ($questions->currentPage() - 1) + 1 }}
+                                        </td>
+                                        <td>{{ $value->jawaban }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-warning rounded edit-btn"
+                                                    data-id="{{ $value['id'] }}" data-nama="{{ $value['jawaban'] }}"
+                                                    data-id_summary="{{ $value->summary->id }}">
+                                                    <img src="   https://cdn-icons-png.flaticon.com/512/1159/1159633.png "
+                                                        alt="icon_edit" height="18">
                                                 </button>
                                                 <form action="{{ route('admin.minat.setting.soal.delete') }}"
-                                                    method="post"
-                                                    onsubmit="return confirm('Are you sure you want to delete this question?');">
+                                                    method="post">
                                                     @csrf
                                                     @method('POST')
-                                                    <input type="hidden" name="id" value="{{ $question->id }}" />
-                                                    <button class="btn btn-danger btn-sm" type="submit">
-                                                        <i class="fas fa-trash-alt"></i>
+                                                    <input type="hidden" name="id" value="{{ $value['id'] }}" />
+                                                    <button class="btn btn-danger rounded" style="margin-left: 5px;">
+                                                        <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png"
+                                                            alt="icon_delete" height="18">
                                                     </button>
                                                 </form>
                                             </div>
@@ -126,179 +194,85 @@
                         {{ $questions->appends(request()->query())->links('pagination::bootstrap-4') }}
                     </div>
                 @else
-                    <div class="alert alert-warning text-center">No questions found.</div>
+                    <div class="alert alert-warning text-center">No data found.</div>
                 @endif
             </div>
         </div>
-    </div>
+        <!-- End list soal -->
 
-    <div class="modal fade" id="modal_edit_description" tabindex="-1" role="dialog"
-        aria-labelledby="editDescriptionModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editDescriptionModalLabel">Edit Description</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('admin.minat.setting.description') }}" method="POST">
-                    @csrf
-                    @method('POST')
+        <!-- Modal -->
+        <div class="modal fade" id="modal_edit_soal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
                     <div class="modal-body">
-                        <input type="hidden" name="id"
-                            value="{{ isset($description) ? $description['id'] : '' }}">
-                        <div class="form-group">
-                            <label for="desc">Description Test</label>
-                            <textarea name="desc" id="desc" class="form-control" rows="10">{{ isset($description) ? $description['desc_test'] : '' }}</textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Save Changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal_edit_soal" tabindex="-1" role="dialog" aria-labelledby="editQuestionModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editQuestionModalLabel">Edit Question</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('admin.minat.setting.soal.edit') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-body">
-                        <input type="hidden" name="id_soal" id="id_soal">
-                        <div class="form-group">
-                            <label for="pertanyaan">Question</label>
-                            <textarea name="pertanyaan" id="pertanyaan" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="summary">Summary</label>
-                            <select name="id_summary" id="summary" class="form-control" required>
-                                @foreach ($summarys as $value)
-                                    <option value="{{ $value['id'] }}">{{ $value['nama_bakat'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Save Changes</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal_create_soal" tabindex="-1" role="dialog"
-        aria-labelledby="createQuestionModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createQuestionModalLabel">Create Soal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('admin.minat.setting.soal.send') }}" method="post">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-body">
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Pertanyaan</th>
-                                    <th scope="col">Summary</th>
-                                </tr>
-                            </thead>
-                            <tbody id="input_area">
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="col-sm-12 text-left">
-                                <button class="btn btn-primary m-1" type="button" onclick="addRow()">+</button>
+                        <form action="{{ route('admin.minat.setting.soal.edit') }}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <div class="container-fluid">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="d-flex align-items-center justify-content-start">
+                                            <label class="mb-0">Edit Soal</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="hidden" name="id_soal" id="id_soal">
+                                    <textarea name="pertanyaan" class="form-control" placeholder="Soal" id="pertanyaan" rows="10" required></textarea>
+                                    <label for="pertanyaan">Pertanyaan</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select name="id_summary" class="form-control" id="summary" required>
+                                        @foreach ($summarys as $value)
+                                            <option value="{{ $value['id'] }}">{{ $value['nama_bakat'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="summary">Summary</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex justify-content-between">
+                                        <button type="submit" class="btn btn-success">Upload</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+
     </div>
 
     <script>
-        $(document).ready(function() {
-            $('.edit-btn').click(function() {
-                let id = $(this).data('id');
-                let nama = $(this).data('nama');
-                let id_summary = $(this).data('id_summary');
-                $('#id_soal').val(id);
-                $('#pertanyaan').val(nama);
-                $('#summary').val(id_summary);
-                $('#modal_edit_soal').modal('show');
+        document.addEventListener('DOMContentLoaded', function() {
+            var editButtons = document.querySelectorAll('.edit-btn');
+
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var id = this.getAttribute('data-id');
+                    var nama = this.getAttribute('data-nama');
+                    var id_summary = this.getAttribute('data-id_summary');
+
+                    document.getElementById('id_soal').value = id;
+                    document.getElementById('pertanyaan').value = nama;
+                    document.getElementById('summary').value = id_summary;
+
+                    var modal = new bootstrap.Modal(document.getElementById('modal_edit_soal'));
+                    modal.show();
+                });
             });
 
-            function performSearch() {
-                $('#searchForm').submit();
-            }
+            var resetButton = document.getElementById('resetButton');
+            var searchInput = document.getElementById('searchInput');
 
-            function resetSearch() {
-                $('#searchInput').val('');
-                $('#searchForm').submit();
-            }
-
-            $('#searchButton').on('click', performSearch);
-
-            $('#resetButton').on('click', resetSearch);
-
-            $('#searchInput').on('keyup', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
+            resetButton.addEventListener('click', function() {
+                searchInput.value = '';
+                document.querySelector('form[action="{{ route('admin.minat.setting.dashboard') }}"]')
+                    .submit();
             });
         });
-
-        function addRow() {
-            const tableBody = document.getElementById('input_area');
-            const rowCount = tableBody.getElementsByTagName('tr').length;
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                    <td scope="col" class="text-center align-middle">${rowCount + 1}</td>
-                    <td scope="col">
-                        <textarea class="form-control" placeholder="Leave a comment here"
-                            name="jawaban[pertanyaan][${rowCount}]" id="floatingTextarea" rows="1" required></textarea>
-                    </td>
-                    <td scope="col">
-                        <select name="jawaban[id_summar][${rowCount}]" class="form-control" id="inputGroupSelect01" required>
-                            <option selected>Choose...</option>
-                            @foreach ($summarys as $value)
-                            <option value="{{ $value['id'] }}">{{ $value['nama_bakat'] }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                `;
-            tableBody.appendChild(newRow);
-        }
-
-        $('#modal_create_soal').on('shown.bs.modal', function() {
-            if ($('#input_area').children().length === 0) {
-                addRow();
-            }
-        });
-
-        window.addRow = addRow;
     </script>
 @endsection

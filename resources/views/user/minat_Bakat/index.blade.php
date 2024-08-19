@@ -42,6 +42,19 @@
                                 <div class="accordion-body text-dark">
                                     {{ $keterangan['keterangan'] }}
                                 </div>
+                                @if ($keterangan['jurusan'] != null)
+                                    <div class="accordion-body text-dark">
+                                        @php
+                                            $jurusanArray = json_decode($keterangan['jurusan'], true);
+                                        @endphp
+                                        @if (is_array($jurusanArray))
+                                            <div style="background-color: #f8f9fa; border-radius: 5px;">
+                                                <p class="mb-0"><b>Rekomendasi Jurusan:</b></p>
+                                                <p class="text-dark">{{ implode(', ', $jurusanArray) }}</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach
