@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Minat Bakat')
 @section('title', 'Settings Page')
+
 @section('content')
     <div class="container-fluid">
         <!-- Desctiotion -->

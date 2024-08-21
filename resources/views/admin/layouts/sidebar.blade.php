@@ -88,20 +88,5 @@
                 </li>
             </ul>
         </div>
-        <!-- Sidebar Footer -->
-        <div class="mt-auto">
-            <hr class="horizontal dark mt-3">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.logout') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-user-run text-danger text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
     </div>
 </aside>

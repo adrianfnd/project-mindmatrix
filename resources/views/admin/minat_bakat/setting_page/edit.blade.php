@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Minat Bakat')
 @section('title', 'Settings Create Soal')
+
 @section('content')
     <div class="container-fluid">
         <div class="row card mb-3">

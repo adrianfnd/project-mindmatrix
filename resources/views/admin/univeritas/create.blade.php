@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Minat Bakat')
 @section('title', isset($universitas) ? 'Update Universitas' : 'Create Universitas')
+
 @section('content')
     <div class="container-fluid">
         <div class="row card mb-3">

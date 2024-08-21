@@ -72,18 +72,18 @@ class UniversitasController extends C_univeritas
     public function create_jurusan(R_J_Create $request){
        $value = $request->validated();
        $create = $this->send_jurusan($value['nama']);
-       return redirect()->route('admin.univeritas.dashboard', ['limit_per_page' => 10]);
+       return redirect()->route('admin.univeritas.jurusan', ['limit_per_page' => 10]);
     }
 
     public function update_jurusan(R_J_Update $request){
         $value = $request->validated();
         $update = $this->send_update_jurusan($value['id'],$value['nama']);
-        return redirect()->route('admin.univeritas.dashboard', ['limit_per_page' => 10]);
+        return redirect()->route('admin.univeritas.jurusan', ['limit_per_page' => 10]);
     }
 
     public function delete_jurusan(R_J_Delete $request){
         $value = $request->validated();
         $delete = $this->send_delete_jurusan($value['id']);
-        return redirect()->route('admin.univeritas.dashboard', ['limit_per_page' => 10]);
+        return redirect()->route('admin.univeritas.jurusan', ['limit_per_page' => 10]);
     }
 }

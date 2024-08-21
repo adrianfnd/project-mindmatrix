@@ -1,7 +1,8 @@
-@extends('User.layouts.app')
-@section('title')
-    Univeritas > Dashboard
-@endsection
+@extends('user.layouts.app')
+
+@section('breadcrumb', 'Minat Bakat')
+@section('title', 'Universitas')
+
 @section('content')
     <div class="container-fluid">
         <div class="row mb-3">

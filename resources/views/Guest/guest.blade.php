@@ -1,7 +1,7 @@
 @extends('Guest.layouts.app')
 
 @section('title')
-    Welcome to Tes Minat Bakat
+    Tes Minat Bakat by Mind Matrix
 @endsection
 
 @section('content')
