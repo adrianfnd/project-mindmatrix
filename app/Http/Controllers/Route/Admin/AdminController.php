@@ -19,6 +19,8 @@ class AdminController extends C_login
 
         $activeTests = DB::table('test_descriptions')->count();
 
+        dd($activeTests);
+
         $totalUniversities = DB::table('universitas')->count();
 
         $totalMajors = DB::table('jurusan_universitas')->count();

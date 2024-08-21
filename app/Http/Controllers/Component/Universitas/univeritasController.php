@@ -75,6 +75,7 @@ class univeritasController extends Controller
 
     public function update_universitas(String $id , String $nama ,String $akreditasi,$alamat , Array $jurusan,$file){
         $universitas = Universitas::find($id);
+
         if($nama != null){
             $universitas->update([
                 'nama_kampus' => $nama,

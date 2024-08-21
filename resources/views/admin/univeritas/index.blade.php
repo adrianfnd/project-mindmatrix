@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('breadcrumb', 'Minat Bakat')
-@section('title', 'Settings Create Soal')
+@section('title', 'Universitas')
 
 @section('content')
     <div class="container-fluid">

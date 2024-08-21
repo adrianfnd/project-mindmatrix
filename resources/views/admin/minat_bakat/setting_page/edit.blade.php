@@ -1,7 +1,3 @@
-{{-- @extends('Admin.Template.app')
-@section('title')
-Minat Bakat > Settings > {{$summary['nama_bakat']}} > Edit
-@endsection --}}
 @extends('admin.layouts.app')
 
 @section('breadcrumb', 'Minat Bakat')
