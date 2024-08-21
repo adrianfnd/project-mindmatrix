@@ -1,23 +1,30 @@
-@extends('User.layouts.app')
-@section('title')
-    Univeritas > Dashboard
-@endsection
+@extends('user.layouts.app')
+
+@section('breadcrumb', 'Minat Bakat')
+@section('title', 'Universitas')
+
 @section('content')
     <div class="container-fluid">
         <div class="row mb-3">
-            <div class="col">
+            <div class="col-md-4 d-flex align-items-start mb-3">
                 <form action="#" method="get">
                     @csrf
                     @method('GET')
-                    <div class="input-group">
+                    <div class="input-group w-100"
+                        style="background-color: #fff; border-radius: 10px; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);">
                         <input type="text" class="form-control" name="search"
-                            placeholder="Masukan nama kampus yang mau di cari " aria-label="Recipient's username"
-                            aria-describedby="button-addon2">
-                        <input type="hidden" name="limit_per_page" value="8" />
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
+                            placeholder="Masukan nama kampus yang mau dicari" aria-label="Search"
+                            aria-describedby="button-addon2"
+                            style="border: none; padding: 10px 15px; font-size: 16px; color: #333; box-shadow: none; outline: none;">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
+                            style="border: none; color: #5a67d8; margin-right: 5px; margin-bottom: -1px; border-radius: 0 10px 10px 0; transition: background-color 0.3s ease; font-size: 16px;">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </form>
+                <button class="btn btn-secondary" style="margin-left: 15px" type="button" id="resetButton">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -60,8 +67,6 @@
                     </div>
                 @endforeach
             @endif
-
-            <!-- Repeat for other cards -->
         </div>
         <div class="col d-flex justify-content-center ">
             {{ $universitas->links('Layout.Pagination.pagination_card') }}
@@ -116,10 +121,8 @@
                 </div>
             </div>
         </div>
-
     </div>
-@endsection
-@section('script')
+
     <script>
         function truncateText(text, wordLimit) {
             const words = text.split(' ');
@@ -129,35 +132,32 @@
 
             return words.slice(0, wordLimit).join(' ') + '...';
         }
-        const elements = document.querySelectorAll('.truncatedText');
-        elements.forEach(element => {
-            const fullText = element.textContent;
-            element.textContent = truncateText(fullText, 15);
-        });
+
         document.addEventListener('DOMContentLoaded', function() {
-            var detailButtons = document.querySelectorAll('.btn-primary');
+            document.querySelectorAll('.truncatedText').forEach(element => {
+                const fullText = element.textContent;
+                element.textContent = truncateText(fullText, 15);
+            });
 
-            detailButtons.forEach(function(button) {
+            document.querySelectorAll('.btn-primary').forEach(button => {
                 button.addEventListener('click', function() {
-                    var card = this.closest('.card');
-                    var id = card.getAttribute('data-id');
-                    var nama = card.querySelector('.card-body h5').textContent;
-                    var akreditasi = card.querySelector('.akreditasi').textContent;
-                    var alamat = card.querySelector('.truncatedText').textContent;
-                    var image = card.querySelector('.image').value;
-                    var jurusan = card.querySelector('.jurusan').value;
-                    var jurusanArray = JSON.parse(jurusan);
-                    var jurusanText = jurusanArray.join(', ');
+                    const card = this.closest('.card');
+                    const id = card.getAttribute('data-id');
+                    const nama = card.querySelector('.card-body h5').textContent;
+                    const akreditasi = card.querySelector('.akreditasi').textContent;
+                    const alamat = card.querySelector('.truncatedText').textContent;
+                    const image = card.querySelector('.image').value;
+                    const jurusan = card.querySelector('.jurusan').value;
+                    const jurusanArray = JSON.parse(jurusan);
+                    const jurusanText = jurusanArray.join(', ');
 
-                    document.getElementById('modal_id').value = id;
                     document.getElementById('modal_nama').textContent = nama;
                     document.getElementById('modal_akreditasi').textContent = akreditasi;
                     document.getElementById('modal_alamat').textContent = alamat;
                     document.getElementById('modal_image').src = image;
                     document.getElementById('modal_jurusan').textContent = jurusanText;
-                    var modal = new bootstrap.Modal(document.getElementById(
-                    'modal_create_jurusan'));
-                    modal.show();
+
+                    new bootstrap.Modal(document.getElementById('modal_create_jurusan')).show();
                 });
             });
         });

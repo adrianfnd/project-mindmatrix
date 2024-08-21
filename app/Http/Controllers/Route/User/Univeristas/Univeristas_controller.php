@@ -19,6 +19,6 @@ class Univeristas_controller extends C_univeritas
         $value['search'] = (isset($value['search'])) ? $value['search'] : $this->search_default;
         $value['limit_per_page'] = (isset($value['limit_per_page'])) ? $value['limit_per_page'] : $this->limit_page;
         $universitas = $this->search_universitas($value['search'],$value['limit_per_page']);
-        return view('User.Univeritas.dashboard',['universitas' => $universitas]);
+        return view('User.Univeritas.index',['universitas' => $universitas]);
     }
 }

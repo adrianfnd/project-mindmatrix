@@ -6,27 +6,34 @@
 @section('content')
     <div class="container-fluid">
         <div class="row mb-3">
-            <div class="col-md-8 d-flex align-items-start">
-                <form action="{{ route('admin.univeritas.dashboard', ['limit_per_page' => 8]) }}" method="get"
-                    class="d-flex w-100">
+            <div class="col-md-4 d-flex align-items-start mb-3">
+                <form action="#" method="get">
                     @csrf
                     @method('GET')
-                    <div class="input-group w-100">
+                    <div class="input-group w-100"
+                        style="background-color: #fff; border-radius: 10px; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);">
                         <input type="text" class="form-control" name="search"
                             placeholder="Masukan nama kampus yang mau dicari" aria-label="Search"
-                            aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
-                            <i class="fas fa-search"></i> Search
+                            aria-describedby="button-addon2"
+                            style="border: none; padding: 10px 15px; font-size: 16px; color: #333; box-shadow: none; outline: none;">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
+                            style="border: none; color: #5a67d8; margin-right: 5px; margin-bottom: -1px; border-radius: 0 10px 10px 0; transition: background-color 0.3s ease; font-size: 16px;">
+                            <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </form>
+                <button class="btn btn-secondary" style="margin-left: 15px" type="button" id="resetButton">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
             </div>
-            <div class="col-md-4 d-flex justify-content-end align-items-start">
-                <a href="{{ route('admin.univeritas.dashboard.create.page') }}" class="btn btn-primary">
+            <div class="col-md-8 d-flex justify-content-end align-items-start">
+                <a href="{{ route('admin.univeritas.dashboard.create.page') }}" class="btn btn-primary"
+                    style="background-color: #fff; color: #5a67d8; padding: 10px 20px; font-size: 16px; border-radius: 10px; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease;">
                     Create Universitas
                 </a>
             </div>
         </div>
+
 
 
         <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -77,7 +84,6 @@
             {{ $universitas->links('Layout.Pagination.pagination_card') }}
         </div>
 
-        <!-- Modal -->
         <div class="modal fade" id="modal_create_jurusan" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
