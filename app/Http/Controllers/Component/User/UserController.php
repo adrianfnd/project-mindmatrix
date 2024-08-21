@@ -56,14 +56,13 @@ class UserController extends Controller
         return $biodata;
     }
 
-    public function edit($id_user, $email, $nama_lengkap, $tanggal_lahir)
+    public function edit($id_user, $email, $nama_lengkap)
     {
         $biodata = Biodata::findOrFail($id_user);
         $user = $biodata->user;
         $user->email = $email;
         $user->save();
         $biodata->nama_lengkap = $nama_lengkap;
-        $biodata->tanggal_lahir = $tanggal_lahir;
         $biodata->save();
     }
 

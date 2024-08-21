@@ -175,7 +175,8 @@
                                                         alt="icon_edit" height="18">
                                                 </button>
                                                 <form action="{{ route('admin.minat.setting.soal.delete') }}"
-                                                    method="post">
+                                                    method="post"
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus soal ini?');">
                                                     @csrf
                                                     @method('POST')
                                                     <input type="hidden" name="id" value="{{ $value['id'] }}" />

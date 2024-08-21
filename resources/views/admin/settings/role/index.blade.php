@@ -8,18 +8,21 @@
         <div class="card py-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Roles</h4>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoleModal">
+                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoleModal">
                     <i class="fas fa-plus me-1"></i> Create Role
-                </button>
+                </button> --}}
             </div>
             <div class="card-body">
                 <form id="searchForm" class="mb-4">
+                    @csrf
+                    @method('GET')
                     <div class="row">
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="searchInput" placeholder="Search role...">
+                            <input type="text" class="form-control" name="search" id="searchInput"
+                                placeholder="Search role...">
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary" type="button" id="searchButton">
+                            <button class="btn btn-primary" type="submit" id="searchButton">
                                 <i class="fas fa-search"></i> Search
                             </button>
                             <button class="btn btn-secondary" type="button" id="resetButton">
@@ -36,9 +39,9 @@
                                 <tr class="text-center">
                                     <th scope="col">No</th>
                                     <th scope="col">Role Name</th>
-                                    <th scope="col">Guard</th>
+                                    {{-- <th scope="col">Guard</th> --}}
                                     <th scope="col">Permission</th>
-                                    <th scope="col">Action</th>
+                                    {{-- <th scope="col">Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,9 +49,9 @@
                                     <tr class="text-center">
                                         <td>{{ $roles->firstItem() + $loop->index }}</td>
                                         <td>{{ $role->name }}</td>
-                                        <td>{{ $role->guard_name }}</td>
+                                        {{-- <td>{{ $role->guard_name }}</td> --}}
                                         <td>{{ $role->permissions->pluck('name')->implode(', ') }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-warning btn-sm edit-btn"
                                                     data-id="{{ $role->id }}" data-name="{{ $role->name }}"
@@ -60,7 +63,7 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -76,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Create Role Modal -->
+    {{-- <!-- Create Role Modal -->
     <div class="modal fade" id="createRoleModal" tabindex="-1" role="dialog" aria-labelledby="createRoleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -133,7 +136,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <script>
         $(document).ready(function() {
@@ -167,9 +170,14 @@
                 $('#rolesTable tbody tr').show();
             }
 
-            $('#searchButton').on('click', performSearch);
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                performSearch();
+            });
 
-            $('#resetButton').on('click', resetSearch);
+            $('#resetButton').on('click', function() {
+                resetSearch();
+            });
 
             $('#searchInput').on('keyup', function(e) {
                 if (e.key === 'Enter') {

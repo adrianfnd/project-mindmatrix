@@ -40,7 +40,7 @@ Minat Bakat > Settings > {{$summary['nama_bakat']}} > Edit
                         <div class="col d-flex justify-content-end">
                             <button class="btn btn-primary mx-1" type="submit">Update</button>
                             <a class="btn btn-danger ms-1"
-                                href="{{ route('admin.minat.setting.dashboard', ['limit_per_page' => 10]) }}">Batal</a>
+                                href="{{ route('admin.minat.setting.dashboard', ['limit_per_page' => 10]) }}">Kembali</a>
 
                         </div>
                     </div>
@@ -117,7 +117,7 @@ Minat Bakat > Settings > {{$summary['nama_bakat']}} > Edit
                             <button class="btn btn-primary mx-1" type="button" id="add-pilihan">+</button>
                             <button class="btn btn-primary mx-1" type="submit">Update</button>
                             <a class="btn btn-danger ms-1"
-                                href="{{ route('admin.minat.setting.dashboard', ['limit_per_page' => 10]) }}">Batal</a>
+                                href="{{ route('admin.minat.setting.dashboard', ['limit_per_page' => 10]) }}">Kembali</a>
                         </div>
                     </div>
                 </div>

@@ -3,9 +3,6 @@
 @section('breadcrumb', 'Minat Bakat')
 @section('title', 'Jurusan')
 @section('content')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
     <div class="container-fluid">
         <div class="row card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -18,17 +15,16 @@
                             class="m-1" /> Create Jurusan
                     </button>
                 </div>
-                <form action="{{ route('admin.univeritas.jurusan') }}" method="get">
+                <form id="searchForm" class="mb-4">
                     @csrf
                     @method('GET')
                     <div class="row">
                         <div class="col-md-3">
-                            <input type="text" class="form-control" name="search" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="button-addon2">
-                            <input type="hidden" name="limit_per_page" value="10" />
+                            <input type="text" class="form-control" name="search" id="searchInput"
+                                placeholder="Search jurusan...">
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary" type="submit" id="button-addon2">
+                            <button class="btn btn-primary" type="submit" id="searchButton">
                                 <i class="fas fa-search"></i> Search
                             </button>
                             <button class="btn btn-secondary" type="button" id="resetButton">
@@ -40,7 +36,7 @@
             </div>
             @if ($jurusans->count() > 0)
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover" id="jurusanTable">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col">No</th>
@@ -62,7 +58,8 @@
                                                 <img src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
                                                     alt="icon_edit" height="18">
                                             </button>
-                                            <form action="{{ route('admin.univeritas.jurusan.delete') }}" method="post">
+                                            <form action="{{ route('admin.univeritas.jurusan.delete') }}" method="post"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus jurusan ini?');">
                                                 @csrf
                                                 @method('POST')
                                                 <input type="hidden" name="id" value="{{ $value['id'] }}" />
@@ -154,6 +151,41 @@
         </div>
 
         <script>
+            $(document).ready(function() {
+                function performSearch() {
+                    var searchText = $('#searchInput').val().toLowerCase();
+                    $('#jurusanTable tbody tr').each(function() {
+                        var rowText = $(this).text().toLowerCase();
+                        if (rowText.indexOf(searchText) === -1) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
+                        }
+                    });
+                }
+
+                function resetSearch() {
+                    $('#searchInput').val('');
+                    $('#jurusanTable tbody tr').show();
+                }
+
+                $('#searchForm').on('submit', function(e) {
+                    e.preventDefault();
+                    performSearch();
+                });
+
+                $('#resetButton').on('click', function() {
+                    resetSearch();
+                });
+
+                $('#searchInput').on('keyup', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            });
+
+
             document.addEventListener('DOMContentLoaded', function() {
                 var editButtons = document.querySelectorAll('.edit-btn');
                 const closeButton = document.querySelector('#modal_edit_jurusan .btn-secondary');
@@ -163,6 +195,7 @@
                 var inputNama = form.querySelector('input[name="nama"]');
                 var hiddenInputId = form.querySelector('input[name="id"]');
                 var submitButton = document.getElementById('submit_button');
+
                 editButtons.forEach(function(button) {
                     button.addEventListener('click', function() {
                         var id = this.getAttribute('data-id');
@@ -216,7 +249,6 @@
                         $('#modal_edit_jurusan').modal('show');
                     });
                 });
-
 
                 closeButton.addEventListener('click', function() {
                     $('#modal_edit_jurusan').modal('hide');

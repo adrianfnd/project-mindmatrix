@@ -30,7 +30,7 @@ class UserController extends C_User
 
     public function edit_user(R_E_User $request){
         $value = $request->validated();
-        $status_edit = $this->edit($value['id_user'], $value['email'], $value['nama_lengkap'], $value['tanggal_lahir']);
+        $status_edit = $this->edit($value['id_user'], $value['email'], $value['nama_lengkap']);
         return redirect()->route('admin.user.dashboard')->with('edit', "Berhasil mengubah data user");
     }
     

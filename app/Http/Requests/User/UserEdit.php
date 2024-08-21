@@ -26,7 +26,6 @@ class UserEdit extends FormRequest
             'id_user' => ['required', 'exists:biodatas,id'],
             'email' => ['required', 'email'],
             'nama_lengkap' => ['required', 'string'],
-            'tanggal_lahir' => ['required', 'date_format:Y-m-d'],
         ];
     }
 
@@ -39,8 +38,6 @@ class UserEdit extends FormRequest
             'email.email' => ['Inputan harus berupa email'],
             'email.unique' => ['Email sudah digunakan'],
             'nama_lengkap.required' => ['Nama lengkap tidak boleh kosong'],
-            'tanggal_lahir.required' => ['Tanggal lahir tidak boleh kosong'],
-            'tanggal_lahir.date_format' => ['Tanggal lahir harus berformat Y-m-d'],
         ];
     }
 }

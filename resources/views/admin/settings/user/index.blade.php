@@ -5,16 +5,18 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="card py-4">
+        <div class="row card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">Users</h4>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
-                    <i class="fas fa-plus me-1"></i> Create User
-                </button>
+                <h5>List Users</h5>
             </div>
             <div class="card-body">
-                <form id="searchForm" action="{{ route('admin.user.dashboard', ['page_per_list' => 10]) }}" method="get"
-                    class="mb-4">
+                <div class="col d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
+                        <img src="https://cdn-icons-png.flaticon.com/512/40/40031.png" alt="icon_add" width="20"
+                            class="m-1" /> Create User
+                    </button>
+                </div>
+                <form id="searchForm" class="mb-4">
                     @csrf
                     @method('GET')
                     <div class="row">
@@ -53,21 +55,45 @@
                                         <td>{{ $user->nama_lengkap }}</td>
                                         <td>{{ $user->user->getRoleNames()->implode(', ') }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning btn-sm" type="button" data-toggle="modal"
-                                                    data-target="#editUserModal{{ $user->id }}">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <form action="{{ route('admin.user.delete') }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                                    @csrf
-                                                    @method('POST')
-                                                    <input type="hidden" name="id_user" value="{{ $user->id }}" />
-                                                    <button class="btn btn-danger btn-sm" type="submit">
-                                                        <i class="fas fa-trash-alt"></i>
+                                            @if ($user->user->getRoleNames()->implode(', ') != 'admin')
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="btn btn-warning rounded edit-btn" type="button"
+                                                        data-toggle="modal" data-target="#editUserModal{{ $user->id }}">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+                                                            alt="icon_edit" height="18">
                                                     </button>
-                                                </form>
-                                            </div>
+                                                    <form action="{{ route('admin.user.delete') }}" method="POST"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <input type="hidden" name="id_user" value="{{ $user->id }}" />
+                                                        <button class="btn btn-danger rounded" style="margin-left: 5px;">
+                                                            <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png"
+                                                                alt="icon_delete" height="18">
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @else
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="btn btn-warning rounded edit-btn" type="button"
+                                                        data-toggle="modal" data-target="#editUserModal{{ $user->id }}"
+                                                        disabled>
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+                                                            alt="icon_edit" height="18">
+                                                    </button>
+                                                    <form action="{{ route('admin.user.delete') }}" method="POST"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <input type="hidden" name="id_user" value="{{ $user->id }}" />
+                                                        <button class="btn btn-danger rounded" style="margin-left: 5px;"
+                                                            disabled>
+                                                            <img src="https://cdn-icons-png.flaticon.com/128/3096/3096687.png"
+                                                                alt="icon_delete" height="18">
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -91,9 +117,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <form action="{{ route('admin.user.edit') }}" method="POST">
                         @csrf
@@ -109,11 +132,6 @@
                                 <label for="nama_lengkap">Full Name</label>
                                 <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap"
                                     value="{{ $user->nama_lengkap }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="tanggal_lahir">Date of Birth</label>
-                                <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir"
-                                    value="{{ \Carbon\Carbon::parse($user->tanggal_lahir)->format('Y-m-d') }}" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,9 +151,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createUserModalLabel">Create New User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <form action="{{ route('admin.user.create') }}" method="POST">
                     @csrf
@@ -144,9 +159,6 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                </div>
                                 <input type="email" name="email" class="form-control" id="email"
                                     placeholder="Enter email" required>
                             </div>
@@ -154,9 +166,6 @@
                         <div class="form-group">
                             <label for="nama_lengkap">Full Name</label>
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                </div>
                                 <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap"
                                     placeholder="Enter full name" required>
                             </div>
@@ -164,23 +173,20 @@
                         <div class="form-group">
                             <label for="tanggal_lahir">Date of Birth</label>
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                </div>
                                 <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir"
                                     required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
+                            <input type="hidden" name="password" value="12345678">
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                </div>
                                 <input type="password" class="form-control" placeholder="Password" disabled
                                     value="12345678">
-                                <input type="hidden" name="password" value="12345678">
                             </div>
+                            <small class="form-text text-muted">
+                                * Catatan: Password default adalah <strong>12345678</strong>.
+                            </small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -195,17 +201,30 @@
     <script>
         $(document).ready(function() {
             function performSearch() {
-                $('#searchForm').submit();
+                var searchText = $('#searchInput').val().toLowerCase();
+                $('#usersTable tbody tr').each(function() {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.indexOf(searchText) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
             }
 
             function resetSearch() {
                 $('#searchInput').val('');
-                $('#searchForm').submit();
+                $('#usersTable tbody tr').show();
             }
 
-            $('#searchButton').on('click', performSearch);
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                performSearch();
+            });
 
-            $('#resetButton').on('click', resetSearch);
+            $('#resetButton').on('click', function() {
+                resetSearch();
+            });
 
             $('#searchInput').on('keyup', function(e) {
                 if (e.key === 'Enter') {
