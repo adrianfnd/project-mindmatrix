@@ -17,7 +17,7 @@ class AdminController extends C_login
     {
         $totalUsers = DB::table('users')->count();
 
-        $activeTests = DB::table('test_descriptions')->count();
+        $activeTests = DB::table('pilihan_jawabans')->count();
 
         $totalUniversities = DB::table('universitas')->count();
 
