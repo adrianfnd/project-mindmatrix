@@ -1,21 +1,21 @@
-@extends('user.layouts.app')
-
-@section('breadcrumb', 'Minat Bakat')
-@section('title', 'Universitas')
-
+@extends('User.layouts.app')
+@section('title')
+    Univeritas > Dashboard
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row mb-3">
             <div class="col-md-4 d-flex align-items-start mb-3">
-                <form action="#" method="get">
+                <form action="#" method="get" id="searchForm">
                     @csrf
                     @method('GET')
                     <div class="input-group w-100"
                         style="background-color: #fff; border-radius: 10px; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);">
-                        <input type="text" class="form-control" name="search"
+                        <input type="text" class="form-control" name="search" id="searchInput"
                             placeholder="Masukan nama kampus yang mau dicari" aria-label="Search"
                             aria-describedby="button-addon2"
                             style="border: none; padding: 10px 15px; font-size: 16px; color: #333; box-shadow: none; outline: none;">
+                        <input type="hidden" name="limit_per_page" value="8" />
                         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
                             style="border: none; color: #5a67d8; margin-right: 5px; margin-bottom: -1px; border-radius: 0 10px 10px 0; transition: background-color 0.3s ease; font-size: 16px;">
                             <i class="fas fa-search"></i>
@@ -67,6 +67,8 @@
                     </div>
                 @endforeach
             @endif
+
+            <!-- Repeat for other cards -->
         </div>
         <div class="col d-flex justify-content-center ">
             {{ $universitas->links('Layout.Pagination.pagination_card') }}
@@ -122,7 +124,6 @@
             </div>
         </div>
     </div>
-
     <script>
         function truncateText(text, wordLimit) {
             const words = text.split(' ');
@@ -160,6 +161,14 @@
                     new bootstrap.Modal(document.getElementById('modal_create_jurusan')).show();
                 });
             });
+        });
+
+        document.getElementById('resetButton').addEventListener('click', function() {
+            document.getElementById('searchInput').value = '';
+
+            const baseUrl = window.location.origin + window.location.pathname;
+
+            window.location.href = `${baseUrl}?limit_per_page=8`;
         });
     </script>
 @endsection

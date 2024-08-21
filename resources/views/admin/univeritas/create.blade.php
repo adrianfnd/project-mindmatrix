@@ -47,9 +47,30 @@
                             </div>
                             <div class="mb-3">
                                 <label for="akreditasi" class="form-label">Akreditasi</label>
-                                <input type="text" class="form-control" name="akreditasi" id="akreditasi"
-                                    placeholder="Masukan Akreditasi Kampus Anda"
-                                    value="{{ isset($universitas) ? $universitas['akreditasi'] : '' }}">
+                                <select class="form-control" name="akreditasi" id="akreditasi">
+                                    <option value="">Pilih Akreditasi</option>
+                                    <option value="A"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'A' ? 'selected' : '' }}>A
+                                    </option>
+                                    <option value="B"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'B' ? 'selected' : '' }}>B
+                                    </option>
+                                    <option value="C"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'C' ? 'selected' : '' }}>C
+                                    </option>
+                                    <option value="Unggul"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'Unggul' ? 'selected' : '' }}>
+                                        Unggul</option>
+                                    <option value="Baik Sekali"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'Baik Sekali' ? 'selected' : '' }}>
+                                        Baik Sekali</option>
+                                    <option value="Baik"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'Baik' ? 'selected' : '' }}>
+                                        Baik</option>
+                                    <option value="Tidak Terakreditasi"
+                                        {{ isset($universitas) && $universitas['akreditasi'] == 'Tidak Terakreditasi' ? 'selected' : '' }}>
+                                        Tidak Terakreditasi</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="alamat" class="form-label">Alamat</label>
